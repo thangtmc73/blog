@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  padding: 16px 32px;
+  .name {
+    font-size: 24px;
+    font-weight: 600;
+    color: #304ffe;
+    margin: 20px 0px 5px;
+  }
+
+  nav {
+    ul {
+      list-style-type:none;
+      display: flex;
+      margin-left: 24px;
+      li {
+        margin: 10px;
+        font-weight: 600;
+        color: #212121;
+      }
+      li.selected {
+        font-weight: 700;
+        border-bottom: #ff4081 2px solid;
+      }
+    }
+  }
+
+
+}
