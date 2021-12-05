@@ -1,7 +1,6 @@
 import Post from "./Post";
-import { useBreakpointValue } from '@chakra-ui/react'
-import { Grid, Box } from '@chakra-ui/react'
-import styles from "styles/Layout.module.scss";
+import { useBreakpointValue } from "@chakra-ui/react"
+import { Grid, Box } from "@chakra-ui/react"
 
 export default function ListPosts({ posts }) {
   const gridTemplateColumns = useBreakpointValue({ base: "repeat(1, 1fr)", md: "200px 1fr" })
@@ -14,13 +13,14 @@ export default function ListPosts({ posts }) {
       {posts && posts.length > 0 ? (
         <Grid gridTemplateColumns={gridTemplateColumns}>
           {posts.map((post, i) => {
-            const { title, description, date, category } = post;
+            const { title, description, date, category, slug } = post;
             return (
               <Post
                 title={title}
                 description={description}
                 date={date}
                 category={category}
+                slug={slug}
                 key={i}
               />
             );
