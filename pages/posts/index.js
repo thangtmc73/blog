@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import dayjs from "dayjs";
-import yaml from 'js-yaml'
 
 import Head from "next/head";
 import ListPosts from "./ListPosts";
@@ -37,7 +36,6 @@ export const getStaticProps = async () => {
       category = "",
       tags = []
     } = data;
-    console.log("===data", new Date(date));
     return {
       title,
       description,
@@ -46,7 +44,7 @@ export const getStaticProps = async () => {
       tags,
       slug: filename.split('.')[0]
     }
-  })
+  });
   return {
     props: {
       posts
