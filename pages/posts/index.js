@@ -1,5 +1,11 @@
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import dayjs from "dayjs";
+import yaml from 'js-yaml'
+
 import Head from "next/head";
-import PostCard from "./PostCard";
+import ListPosts from "./ListPosts";
 import Header from "components/Header";
 import styles from "styles/Layout.module.scss";
 
@@ -12,17 +18,38 @@ export default function Posts({ posts }) {
       <div className={styles.maxWidthWrapper}>
         <Header />
         <main>
-          {posts && posts.length > 0 ? (
-            <ul>
-              {posts.map((post, i) => (
-                <PostCard post={post} key={i} />
-              ))}
-            </ul>
-          ) : (
-            <h2>No added posts</h2>
-          )}
+          <ListPosts posts={posts} />
         </main>
       </div>
     </div>
   )
+}
+
+export const getStaticProps = async () => {
+  const files = fs.readdirSync(path.join('posts'))
+  const posts = files.map(filename => {
+    const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8');
+    const { data } = matter(markdownWithMeta);
+    const {
+      title,
+      description = "",
+      date,
+      category = "",
+      tags = []
+    } = data;
+    console.log("===data", new Date(date));
+    return {
+      title,
+      description,
+      date: dayjs(new Date(date)).format("DD/MM/YYYY"),
+      category,
+      tags,
+      slug: filename.split('.')[0]
+    }
+  })
+  return {
+    props: {
+      posts
+    }
+  }
 }
