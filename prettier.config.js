@@ -1,0 +1,10 @@
+const options = {
+  arrowParens: "always",
+  singleQuote: false,
+  bracketSpacing: true,
+  semi: true,
+  tabWidth: 2,
+  trailingComma: 'es5'
+}
+
+module.exports = options
