@@ -12,12 +12,11 @@ const NavItems = [{
 
 function Nav() {
   const { pathname } = useRouter();
-  console.log("pathname", pathname)
   return (
     <nav>
       <ul>
         {NavItems.map(({ label, path }) => {
-          const className = path === pathname && styles.selected;
+          const className = path === pathname ? styles.selected : undefined;
           return (
             <li key={path} className={className}>
               <Link href={path} passHref>
