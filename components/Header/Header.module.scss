@@ -4,29 +4,30 @@
   width: 100%;
   padding: 16px 32px;
   position: sticky;
+  font-family: Futura,-apple-system,sans-serif;
+
   .name {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     color: #304ffe;
     margin: 20px 0px 5px;
   }
 
-  nav {
-    ul {
-      list-style-type:none;
-      display: flex;
-      margin-left: 24px;
-      li {
-        margin: 10px;
-        font-weight: 600;
-        color: #212121;
-      }
-      li.selected {
-        font-weight: 700;
-        border-bottom: #ff4081 2px solid;
-      }
-    }
+  .navMobile {
+    position: absolute;
+    z-index: 10;
+    background-color: black;
+    opacity: 0.96;
+    top: 0px;
+    padding-top: 80px;
+    padding-left: 48px;
+    left: -16px;
+    width: 100vw;
+    height: 100vh;
+    transition: all 1s ease;
+    padding-bottom: 12px;
   }
 
-
+  .navDesktop {
+  }
 }
