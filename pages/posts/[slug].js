@@ -16,7 +16,7 @@ const PostPage = ({ title, date, mdxSource }) => {
       </Head>
       <div className={styles.maxWidthWrapper}>
         <Header />
-        <main className={styles.markdownContent}>
+        <main>
           <Text color="#212121" fontSize="3xl" fontWeight={"bold"}>{title}</Text>
           <MDXRemote {...mdxSource} />
         </main>
