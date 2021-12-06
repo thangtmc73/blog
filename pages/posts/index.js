@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import dayjs from "dayjs";
 
 import Head from "next/head";
-import ListPosts from "./ListPosts";
+import ListPosts from "./components/ListPosts";
 import Header from "components/Header";
 import styles from "styles/Layout.module.scss";
 
