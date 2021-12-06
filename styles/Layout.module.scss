@@ -1,0 +1,46 @@
+.page {
+  height: 100vh;
+  overflow-y: scroll;
+
+  .maxWidthWrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mainContent {
+    background-color: white;
+  }
+  .markdownContent {
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 24px;
+      color: #0026ca;
+      margin-top: 12px;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 22px;
+    }
+    h3 {
+      font-size: 20px;
+    }
+    p {
+      code {
+        font-style: italic;
+        background-color: #f4f5f6;
+        padding: 2px
+      }
+      a {
+        padding: 2px;
+        color: #0026ca;
+      }
+      a:hover {
+        border-bottom: 2px solid #0026ca;
+      }
+    }
+  }
+}
