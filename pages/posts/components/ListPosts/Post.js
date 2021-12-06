@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { Box, Text, useBreakpointValue } from "@chakra-ui/react"
+import dayjs from "dayjs";
 
 function Post({ title, description, date, category, slug }) {
   const minDateHeight = useBreakpointValue({ base: "auto", md: "100px" });
   const postPaddingTop = useBreakpointValue({ base: 0, md: 4 });
+  const writtenDate = dayjs(date).format("DD/MM/YYYY");
   return (
     <>
       <Box
@@ -13,7 +15,7 @@ function Post({ title, description, date, category, slug }) {
         paddingLeft={4}
         paddingRight={4}
       >
-        <Text color="#6a737d" fontSize="sm" fontWeight={"medium"}>{date}</Text>
+        <Text color="#6a737d" fontSize="sm" fontWeight={"medium"}>{writtenDate}</Text>
       </Box>
       <Box
         bgColor={"white"}

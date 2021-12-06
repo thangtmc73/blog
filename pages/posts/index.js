@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import dayjs from "dayjs";
 
 import Head from "next/head";
 import ListPosts from "./components/ListPosts";
@@ -39,11 +38,17 @@ export const getStaticProps = async () => {
     return {
       title,
       description,
-      date: dayjs(new Date(date)).format("DD/MM/YYYY"),
+      date,
       category,
       tags,
       slug: filename.split('.')[0]
     }
+  }).sort((A, B) => {
+    const { date: aDate } = A;
+    const { date: bDate } = B;
+    const ADate = new Date(aDate);
+    const BDate = new Date(bDate);
+    return BDate - ADate;
   });
   return {
     props: {
