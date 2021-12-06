@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import { Box, Text, useBreakpointValue } from "@chakra-ui/react"
+import { Box, Text, Link, useBreakpointValue } from "@chakra-ui/react"
 import dayjs from "dayjs";
 import styles from "./ListPosts.module.scss";
 
