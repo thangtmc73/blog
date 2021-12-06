@@ -4,11 +4,18 @@ import matter from "gray-matter";
 import Head from "next/head";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
-import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
 import Header from "components/Header";
+import PostDetailHeader from "./components/PostDetailHeader";
 import styles from "styles/Layout.module.scss";
 
-const PostPage = ({ title, date, mdxSource }) => {
+function PostPage({
+  title,
+  description,
+  date,
+  category,
+  tags,
+  mdxSource,
+}) {
   return (
     <div className={styles.page}>
       <Head>
@@ -17,7 +24,13 @@ const PostPage = ({ title, date, mdxSource }) => {
       <div className={styles.maxWidthWrapper}>
         <Header />
         <main>
-          <Text color="#212121" fontSize="3xl" fontWeight={"bold"}>{title}</Text>
+          <PostDetailHeader
+            title={title}
+            description={description}
+            date={date}
+            category={category}
+            tags={tags}
+          />
           <MDXRemote {...mdxSource} />
         </main>
       </div>
@@ -47,16 +60,17 @@ const getStaticProps = async ({ params: { slug } }) => {
   const { data, content } = matter(markdownWithMeta);
   const {
     title,
+    description,
     date,
     category = "",
     tags = []
   } = data;
   const mdxSource = await serialize(content);
-  console.log("===mdxSource", mdxSource);
 
   return {
     props: {
       title,
+      description,
       date,
       category,
       tags,
