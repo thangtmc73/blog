@@ -7,6 +7,8 @@ import { MDXRemote } from "next-mdx-remote";
 import Header from "components/Header";
 import PostDetailHeader from "./components/PostDetailHeader";
 import styles from "styles/Layout.module.scss";
+import { Box } from "@chakra-ui/react";
+import className from "utils/className";
 
 function PostPage({
   title,
@@ -21,9 +23,9 @@ function PostPage({
       <Head>
         <title>Posts</title>
       </Head>
-      <div className={styles.maxWidthWrapper}>
-        <Header />
-        <main>
+      <Box backgroundColor="#f4f5f6">
+        <div className={styles.maxWidthWrapper}>
+          <Header />
           <PostDetailHeader
             title={title}
             description={description}
@@ -31,7 +33,16 @@ function PostPage({
             category={category}
             tags={tags}
           />
-          <MDXRemote {...mdxSource} />
+        </div>
+      </Box>
+      <div className={className(styles.maxWidthWrapper, styles.mainContent)}>
+        <main>
+          <Box
+            backgroundColor={"white"}
+            pt={6}
+          >
+            <MDXRemote {...mdxSource} />
+          </Box>
         </main>
       </div>
     </div>
