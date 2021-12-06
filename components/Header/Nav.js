@@ -43,18 +43,19 @@ function Nav({ toggleOn }) {
         {NavItems.map(({ label, path }) => {
           const selected = path === pathname
           return (
-            <Link key={label} href={path} passHref>
-              <Text
-                className={className(path === pathname && styles.selected)}
-                color={textColor}
-                padding={{ base: 0, md: 2 }}
-                fontSize={{ base: "2xl", md: "lg"}}
-                fontWeight={selected ? 700 : 600}
-                borderBottom={selected && !toggleVisible && "2px solid #ff4081"}
-              >
+            <Text
+              key={label}
+              className={className(path === pathname && styles.selected)}
+              color={textColor}
+              padding={{ base: 0, md: 2 }}
+              fontSize={{ base: "2xl", md: "lg"}}
+              fontWeight={selected ? 700 : 600}
+              borderBottom={selected && !toggleVisible && "2px solid #ff4081"}
+            >
+              <Link  href={path} passHref>
                 {label}
-              </Text>    
-            </Link>
+              </Link>
+            </Text>    
           );
         })}
       </Stack>
