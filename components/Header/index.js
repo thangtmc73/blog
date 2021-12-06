@@ -6,7 +6,7 @@ function Header() {
   return (
     <header className={styles.header}>
       <Link href="/" passHref>
-        <h2 className={styles.name}>Es kommst</h2>
+        <h1 className={styles.name}>Es kommst</h1>
       </Link>
       <Nav />
     </header>
