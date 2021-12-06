@@ -8,7 +8,7 @@ import {
   IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
- import { FiSun } from "react-icons/fi";
+import DarkModeButton from "./DarkModeButton";
 
 const NavItems = [{
   label: "Posts",
@@ -62,11 +62,7 @@ function Nav({ toggleOn }) {
       <Stack
         direction={"row"}
       >
-        <IconButton
-          size={25}
-          colorScheme={iconColor}
-          icon={<FiSun size={25} />}
-        />
+        <DarkModeButton />
       </Stack>
     </Stack>
   )
