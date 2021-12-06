@@ -6,6 +6,8 @@ import Head from "next/head";
 import ListPosts from "./components/ListPosts";
 import Header from "components/Header";
 import styles from "styles/Layout.module.scss";
+import className from "utils/className";
+import { Box } from "@chakra-ui/react";
 
 export default function Posts({ posts }) {
   return (
@@ -13,8 +15,14 @@ export default function Posts({ posts }) {
       <Head>
         <title>Posts</title>
       </Head>
-      <div className={styles.maxWidthWrapper}>
-        <Header />
+      <Box
+        backgroundColor="#f4f5f6"
+      >
+        <div className={className(styles.maxWidthWrapper)}>
+          <Header />
+        </div>
+      </Box>
+      <div className={className(styles.maxWidthWrapper, styles.mainContent)}>
         <main>
           <ListPosts posts={posts} />
         </main>

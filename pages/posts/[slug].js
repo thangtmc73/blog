@@ -35,16 +35,18 @@ function PostPage({
           />
         </div>
       </Box>
-      <div className={className(styles.maxWidthWrapper, styles.mainContent)}>
-        <main>
+      <Box backgroundColor="white">
+        <div className={className(styles.maxWidthWrapper, styles.mainContent)}>
           <Box
             backgroundColor={"white"}
+            pl={8}
+            pr={8}
             pt={6}
           >
             <MDXRemote {...mdxSource} />
           </Box>
-        </main>
       </div>
+      </Box>
     </div>
   )
 }

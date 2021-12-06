@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Box, Text, useBreakpointValue } from "@chakra-ui/react"
 import dayjs from "dayjs";
+import styles from "./ListPosts.module.scss";
 
 function Post({ title, description, date, category, slug }) {
   const minDateHeight = useBreakpointValue({ base: "auto", md: "100px" });
@@ -19,19 +20,22 @@ function Post({ title, description, date, category, slug }) {
       </Box>
       <Box
         bgColor={"white"}
+        className={styles.postItemContent}
         minH={100}
         paddingTop={postPaddingTop}
         paddingLeft={4}
         paddingRight={4}
         paddingBottom={8}
       >
-        <Link href={'/posts/' + slug} passHref>
-          <div>
-            <Text color="#6a737d" fontSize="sm" fontWeight={"medium"}>{category}</Text>
-            <Text color="#212121" fontSize="md" fontWeight={"bold"}>{title}</Text>
-            <Text color="#212121" fontSize="sm">{description}</Text>
-          </div>
-        </Link>
+        <Text color="#6a737d" fontSize="sm" fontWeight={"medium"}>{category}</Text>
+        <Text className={styles.title} color="#212121" fontSize="md" fontWeight={"bold"}>
+          <Link href={'/posts/' + slug} passHref>
+            {title}
+          </Link>
+        </Text>
+        <Text color="#212121" fontSize="sm">
+          {description}
+        </Text>
       </Box>
     </>
   )

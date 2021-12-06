@@ -1,14 +1,16 @@
-import Post from "./Post";
 import { useBreakpointValue } from "@chakra-ui/react"
-import { Grid, Box } from "@chakra-ui/react"
+import { Grid, Box } from "@chakra-ui/react";
+import styles from "./ListPosts.module.scss";
+import Post from "./Post";
 
 export default function ListPosts({ posts }) {
-  const gridTemplateColumns = useBreakpointValue({ base: "repeat(1, 1fr)", md: "200px 1fr" })
+  const gridTemplateColumns = useBreakpointValue({ base: "repeat(1, 1fr)", md: "200px 1fr" });
   return (
     <Box
+      className={styles.listPosts}
       bgColor={"white"}
-      marginLeft={8}
-      marginRight={8}
+      marginLeft={4}
+      marginRight={4}
     >
       {posts && posts.length > 0 ? (
         <Grid gridTemplateColumns={gridTemplateColumns}>
