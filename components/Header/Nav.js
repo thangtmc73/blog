@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router"
 import styles from "./Header.module.scss";
+import className from "utils/className";
 
 const NavItems = [{
   label: "Posts",
@@ -16,9 +17,8 @@ function Nav() {
     <nav>
       <ul>
         {NavItems.map(({ label, path }) => {
-          const className = path === pathname ? styles.selected : undefined;
           return (
-            <li key={path} className={className}>
+            <li key={path} className={className(path === pathname && styles.selected)}>
               <Link href={path} passHref>
               {label}
             </Link>
