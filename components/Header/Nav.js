@@ -28,6 +28,14 @@ function Nav({ toggleOn, onToggle }) {
   const colorModeTextColor = useColorModeValue(...ThemeConfig.primaryText);
   const textColor = useBreakpointValue({ base: "white", md: colorModeTextColor });
 
+  useEffect(() => {
+    if (isMobile && toggleOn) {
+      document.body.classList.add("disable-scroll");
+      return;
+    }
+    document.body.classList.remove("disable-scroll");
+  }, [isMobile, toggleOn])
+
   if (isMobile && !toggleOn) {
     return null;
   }
