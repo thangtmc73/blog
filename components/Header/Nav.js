@@ -5,7 +5,6 @@ import className from "utils/className";
 import {
   Stack,
   Text,
-  IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import DarkModeButton from "./DarkModeButton";
@@ -21,7 +20,6 @@ const NavItems = [{
 function Nav({ toggleOn }) {
   const { pathname } = useRouter();
   const toggleVisible = useBreakpointValue({ base: true, md: false });
-  const iconColor = useBreakpointValue({ base: "white", md: "gray" });
   const textColor = useBreakpointValue({ base: "white", md: "#212121" });
 
   if (toggleVisible && !toggleOn) {
