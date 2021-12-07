@@ -73,7 +73,7 @@ function Nav({ toggleOn, onToggle }) {
               fontWeight={selected ? 700 : 600}
               borderBottom={selected && !isMobile && "2px solid #ff4081"}
             >
-              <Link  href={path}>
+              <Link href={path}>
                 {label}
               </Link>
             </Text>    

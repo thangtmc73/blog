@@ -47,7 +47,7 @@ function Post({ title, description, date, category, slug }) {
           fontSize="md"
           fontWeight={"bold"}
         >
-          <Link href={'/posts/' + slug} passHref>
+          <Link href={'/posts/' + slug}>
             {title}
           </Link>
         </ThemeText>
