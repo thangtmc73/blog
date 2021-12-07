@@ -4,7 +4,6 @@ import matter from "gray-matter";
 
 import Head from "next/head";
 import ListPosts from "./components/ListPosts";
-import Header from "components/Header";
 import styles from "styles/Layout.module.scss";
 import className from "utils/className";
 import { ThemeBox } from "components/ThemeComponent";
@@ -16,7 +15,6 @@ export default function Posts({ posts }) {
       <Head>
         <title>Posts</title>
       </Head>
-      <Header />
       <ThemeBox
         bgColorConfig={ThemeConfig.defaultContentBackgroundColor}
       >

@@ -4,7 +4,6 @@ import matter from "gray-matter";
 import Head from "next/head";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
-import Header from "components/Header";
 import PostDetailHeader from "./components/PostDetailHeader";
 import styles from "styles/PostDetail.module.scss";
 import className from "utils/className";
@@ -26,7 +25,6 @@ function PostPage({
       <Head>
         <title>Posts</title>
       </Head>
-      <Header />
       <ThemeBox bgColorConfig={ThemeConfig.defaultHeaderBackgroundColor}>
         <div className={styles.maxWidthWrapper}>
           <PostDetailHeader
