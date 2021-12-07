@@ -16,13 +16,7 @@ export default function Posts({ posts }) {
       <Head>
         <title>Posts</title>
       </Head>
-      <ThemeBox
-        bgColorConfig={ThemeConfig.defaultHeaderBackgroundColor}
-      >
-        <div className={className(styles.maxWidthWrapper)}>
-          <Header />
-        </div>
-      </ThemeBox>
+      <Header />
       <ThemeBox
         bgColorConfig={ThemeConfig.defaultContentBackgroundColor}
       >

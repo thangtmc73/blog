@@ -26,9 +26,9 @@ function PostPage({
       <Head>
         <title>Posts</title>
       </Head>
+      <Header />
       <ThemeBox bgColorConfig={ThemeConfig.defaultHeaderBackgroundColor}>
         <div className={styles.maxWidthWrapper}>
-          <Header />
           <PostDetailHeader
             title={title}
             description={description}
