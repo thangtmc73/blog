@@ -5,11 +5,14 @@ import className from "utils/className";
 import {
   Stack,
   Text,
+  Box,
   useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
 import DarkModeButton from "./DarkModeButton";
 import ThemeConfig from "theme/theme-config";
+ import { FiX } from "react-icons/fi";
+import { useEffect } from "react";
 
 const NavItems = [{
   label: "Posts",
@@ -19,13 +22,13 @@ const NavItems = [{
   path: "/about",
 }]
 
-function Nav({ toggleOn }) {
+function Nav({ toggleOn, onToggle }) {
   const { pathname } = useRouter();
-  const toggleVisible = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false });
   const colorModeTextColor = useColorModeValue(...ThemeConfig.primaryText);
   const textColor = useBreakpointValue({ base: "white", md: colorModeTextColor });
 
-  if (toggleVisible && !toggleOn) {
+  if (isMobile && !toggleOn) {
     return null;
   }
   return (
@@ -34,13 +37,22 @@ function Nav({ toggleOn }) {
       flex={1}
       justify={{ base: "flex-start", md: "space-between" }}
       direction={{ base: "column", md: "row" }}
-      className={className(toggleVisible && styles.navMobile)}
+      className={className(isMobile && styles.navMobile)}
       pl={{ base: 0, md: 10 }}
       pb={{ base: 12, md: 0}}
     >
       <Stack
         direction={{ base: "column", md: "row" }}
       >
+        <Box
+          position={"absolute"}
+          top={10}
+          right={16}
+          display={{ base: "block", md: "none" }}
+          onClick={onToggle}
+        > 
+          <FiX color="white" size={24} />
+        </Box>
         {NavItems.map(({ label, path }) => {
           const selected = path === pathname
           return (
@@ -51,9 +63,9 @@ function Nav({ toggleOn }) {
               padding={{ base: 0, md: 2 }}
               fontSize={{ base: "2xl", md: "lg"}}
               fontWeight={selected ? 700 : 600}
-              borderBottom={selected && !toggleVisible && "2px solid #ff4081"}
+              borderBottom={selected && !isMobile && "2px solid #ff4081"}
             >
-              <Link  href={path} passHref>
+              <Link  href={path}>
                 {label}
               </Link>
             </Text>    

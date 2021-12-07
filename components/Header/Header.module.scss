@@ -17,14 +17,14 @@
   }
 
   .navMobile {
-    position: absolute;
+    position: fixed;
     z-index: 10;
     background-color: black;
     opacity: 0.96;
     top: 0px;
     padding-top: 80px;
     padding-left: 48px;
-    left: -16px;
+    left: -2px;
     width: 100vw;
     height: 100vh;
     transition: all 1s ease;

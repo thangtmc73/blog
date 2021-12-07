@@ -1,8 +1,8 @@
 import React from "react"
 import { Box } from "@chakra-ui/react"
- import { FiMenu, FiX } from "react-icons/fi";
+ import { FiMenu } from "react-icons/fi";
 
-function MenuToggle({ onToggle, toggleOn }) {
+function MenuToggle({ onToggle }) {
   return (
     <Box
       position={"absolute"}
@@ -10,9 +10,8 @@ function MenuToggle({ onToggle, toggleOn }) {
       right={16}
       display={{ base: "block", md: "none" }}
       onClick={onToggle}
-      zIndex={11}
-    >
-      {toggleOn ? <FiX color="white" size={ICON_SIZE} /> : <FiMenu size={ICON_SIZE} />}
+    > 
+      <FiMenu size={ICON_SIZE} />
     </Box>
   )
 }
