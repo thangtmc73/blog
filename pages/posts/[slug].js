@@ -6,7 +6,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import Header from "components/Header";
 import PostDetailHeader from "./components/PostDetailHeader";
-import styles from "styles/Layout.module.scss";
+import styles from "styles/PostDetail.module.scss";
 import className from "utils/className";
 import ThemeConfig from "theme/theme-config";
 import {
