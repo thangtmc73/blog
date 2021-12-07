@@ -1,4 +1,4 @@
-import { Box, Text, Link, useBreakpointValue } from "@chakra-ui/react"
+import { Link, useBreakpointValue } from "@chakra-ui/react"
 import dayjs from "dayjs";
 import styles from "./ListPosts.module.scss";
 import { ThemeBox, ThemeText } from "components/ThemeComponent";
