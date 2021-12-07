@@ -6,8 +6,10 @@ import {
   Stack,
   Text,
   useBreakpointValue,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import DarkModeButton from "./DarkModeButton";
+import ThemeConfig from "theme/theme-config";
 
 const NavItems = [{
   label: "Posts",
@@ -20,7 +22,8 @@ const NavItems = [{
 function Nav({ toggleOn }) {
   const { pathname } = useRouter();
   const toggleVisible = useBreakpointValue({ base: true, md: false });
-  const textColor = useBreakpointValue({ base: "white", md: "#212121" });
+  const colorModeTextColor = useColorModeValue(...ThemeConfig.primaryText);
+  const textColor = useBreakpointValue({ base: "white", md: colorModeTextColor });
 
   if (toggleVisible && !toggleOn) {
     return null;
