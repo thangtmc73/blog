@@ -1,6 +1,8 @@
-import { Box, Text, Link, useBreakpointValue } from "@chakra-ui/react"
+import { Link, useBreakpointValue } from "@chakra-ui/react"
 import dayjs from "dayjs";
 import styles from "./ListPosts.module.scss";
+import { ThemeBox, ThemeText } from "components/ThemeComponent";
+import ThemeConfig from "theme/theme-config";
 
 function Post({ title, description, date, category, slug }) {
   const minDateHeight = useBreakpointValue({ base: "auto", md: "100px" });
@@ -8,17 +10,23 @@ function Post({ title, description, date, category, slug }) {
   const writtenDate = dayjs(date).format("DD/MM/YYYY");
   return (
     <>
-      <Box
-        bgColor={"white"}
+      <ThemeBox
+        bgColorConfig={ThemeConfig.defaultContentBackgroundColor}
         minH={minDateHeight}
         paddingTop={4}
         paddingLeft={4}
         paddingRight={4}
       >
-        <Text color="#6a737d" fontSize="sm" fontWeight={"medium"}>{writtenDate}</Text>
-      </Box>
-      <Box
-        bgColor={"white"}
+        <ThemeText
+          colorConfig={ThemeConfig.subText}
+          fontSize="sm"
+          fontWeight={"medium"}
+        >
+          {writtenDate}
+        </ThemeText>
+      </ThemeBox>
+      <ThemeBox
+        bgColorConfig={ThemeConfig.defaultContentBackgroundColor}
         className={styles.postItemContent}
         minH={100}
         paddingTop={postPaddingTop}
@@ -26,16 +34,31 @@ function Post({ title, description, date, category, slug }) {
         paddingRight={4}
         paddingBottom={8}
       >
-        <Text color="#6a737d" fontSize="sm" fontWeight={"medium"}>{category}</Text>
-        <Text className={styles.title} color="#212121" fontSize="md" fontWeight={"bold"}>
+        <ThemeText
+          colorConfig={ThemeConfig.subText}
+          fontSize="sm"
+          fontWeight={"medium"}
+        >
+          {category}
+        </ThemeText>
+        <ThemeText
+          colorConfig={ThemeConfig.primaryText}
+          className={styles.title}
+          fontSize="md"
+          fontWeight={"bold"}
+        >
           <Link href={'/posts/' + slug} passHref>
             {title}
           </Link>
-        </Text>
-        <Text color="#212121" fontSize="sm">
+        </ThemeText>
+        <ThemeText
+          colorConfig={ThemeConfig.subText}
+          fontSize="sm"
+          mt={1}
+        >
           {description}
-        </Text>
-      </Box>
+        </ThemeText>
+      </ThemeBox>
     </>
   )
 }

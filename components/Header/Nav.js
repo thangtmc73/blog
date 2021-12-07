@@ -5,10 +5,11 @@ import className from "utils/className";
 import {
   Stack,
   Text,
-  IconButton,
   useBreakpointValue,
+  useColorModeValue,
 } from "@chakra-ui/react";
- import { FiSun } from "react-icons/fi";
+import DarkModeButton from "./DarkModeButton";
+import ThemeConfig from "theme/theme-config";
 
 const NavItems = [{
   label: "Posts",
@@ -21,8 +22,8 @@ const NavItems = [{
 function Nav({ toggleOn }) {
   const { pathname } = useRouter();
   const toggleVisible = useBreakpointValue({ base: true, md: false });
-  const iconColor = useBreakpointValue({ base: "white", md: "gray" });
-  const textColor = useBreakpointValue({ base: "white", md: "#212121" });
+  const colorModeTextColor = useColorModeValue(...ThemeConfig.primaryText);
+  const textColor = useBreakpointValue({ base: "white", md: colorModeTextColor });
 
   if (toggleVisible && !toggleOn) {
     return null;
@@ -62,11 +63,7 @@ function Nav({ toggleOn }) {
       <Stack
         direction={"row"}
       >
-        <IconButton
-          size={25}
-          colorScheme={iconColor}
-          icon={<FiSun size={25} />}
-        />
+        <DarkModeButton />
       </Stack>
     </Stack>
   )
