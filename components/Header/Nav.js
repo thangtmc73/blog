@@ -34,7 +34,11 @@ function Nav({ toggleOn, onToggle }) {
       return;
     }
     document.body.classList.remove("disable-scroll");
-  }, [isMobile, toggleOn])
+  }, [isMobile, toggleOn]);
+
+  function handleNavItemClick() {
+    onToggle && onToggle();
+  }
 
   if (isMobile && !toggleOn) {
     return null;
@@ -72,6 +76,7 @@ function Nav({ toggleOn, onToggle }) {
               fontSize={{ base: "2xl", md: "lg"}}
               fontWeight={selected ? 700 : 600}
               borderBottom={selected && !isMobile && "2px solid #ff4081"}
+              onClick={handleNavItemClick}
             >
               <Link href={path}>
                 {label}
