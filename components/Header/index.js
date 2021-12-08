@@ -17,7 +17,10 @@ function Header() {
         <h1 className={styles.name}>
           <Link href="/" passHref>Es kommst</Link>
         </h1>
-        <Nav toggleOn={toggleOn} />
+        <Nav
+          toggleOn={toggleOn}
+          onToggle={handleMenuToggle}
+        />
         <MenuToggle onToggle={handleMenuToggle} toggleOn={toggleOn}/>
       </header>
     </ThemeBox>
