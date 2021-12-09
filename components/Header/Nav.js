@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import styles from "./Header.module.scss";
 import className from "utils/className";
 import {
@@ -10,6 +11,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import DarkModeButton from "./DarkModeButton";
+import LanguageButton from "./LanguageButton";
 import ThemeConfig from "theme/theme-config";
  import { FiX } from "react-icons/fi";
 import { useEffect } from "react";
@@ -23,6 +25,7 @@ const NavItems = [{
 }]
 
 function Nav({ toggleOn, onToggle }) {
+  const { t } = useTranslation("common")
   const { pathname } = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const colorModeTextColor = useColorModeValue(...ThemeConfig.primaryText);
@@ -79,7 +82,7 @@ function Nav({ toggleOn, onToggle }) {
               onClick={handleNavItemClick}
             >
               <Link href={path}>
-                {label}
+                {t(path)}
               </Link>
             </Text>    
           );
@@ -89,6 +92,7 @@ function Nav({ toggleOn, onToggle }) {
         direction={"row"}
       >
         <DarkModeButton />
+        <LanguageButton />
       </Stack>
     </Stack>
   )

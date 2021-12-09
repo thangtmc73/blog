@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import Head from "next/head";
 import ListPosts from "./components/ListPosts";
@@ -26,7 +27,7 @@ export default function Posts({ posts }) {
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps = async ({ locale }) => {
   const files = fs.readdirSync(path.join('posts'))
   const posts = files.map(filename => {
     const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8');
@@ -55,6 +56,7 @@ export const getStaticProps = async () => {
   });
   return {
     props: {
+      ...await serverSideTranslations(locale, ["common"]),
       posts
     }
   }
