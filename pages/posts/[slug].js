@@ -55,26 +55,26 @@ function PostPage({
 }
 
 const getStaticPaths = async ({ locales }) => {
-  const files = fs.readdirSync(path.join("posts"))
+  const files = fs.readdirSync(path.join("posts"));
 
-  const enPaths = files.map(filename => ({
-    params: {
-      slug: filename.replace(".mdx", ""),
-      locale: "en"
-    }
-  }));
-  const viPaths = files.map(filename => ({
-    params: {
-      slug: filename.replace(".mdx", ""),
-      locale: "vi"
-    }
-  }));
+  function generatePathWithLocale(locale) {
+    return files.map(filename => ({
+      params: {
+        slug: filename.replace(".mdx", ""),
+        locale: locale,
+      }
+    }));
+  }
+
+  const paths = locales?.reduce((oldPaths, locale) => {
+    return [
+      ...oldPaths,
+      ...generatePathWithLocale(locale),
+    ]
+  }, []);
 
   return {
-    paths: [
-      ...enPaths,
-      ...viPaths,
-    ],
+    paths: paths,
     fallback: true
   }
 }
