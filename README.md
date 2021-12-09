@@ -5,7 +5,7 @@ This is a NextJS project
 - [ ] Responsive design
 - [ ] Multiple languages
 - [ ] Estimated post reading time
-- [ ] Markdown
+- [x] Markdown
 - [ ] MongoDB integration
 - [ ] Admin page
 - [ ] Online Editor to create new post
