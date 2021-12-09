@@ -42,8 +42,7 @@ function Post({ title, description, date, category, slug }) {
           {category}
         </ThemeText>
         <ThemeText
-          colorConfig={ThemeConfig.primaryText}
-          className={styles.title}
+          colorConfig={ThemeConfig.highlightText}
           fontSize="md"
           fontWeight={"bold"}
         >

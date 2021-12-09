@@ -1,12 +1,20 @@
 import {
   extendTheme,
 } from "@chakra-ui/react";
+import { mode } from "@chakra-ui/theme-tools"
+import ThemeConfig from "theme/theme-config";
 
-// 3. extend the theme
 const theme = extendTheme({
   config: {
     initialColorMode: "light",
     useSystemColorMode: false,
+  },
+  styles: {
+    global: (props) => ({
+      body: {
+        bg: mode(...ThemeConfig.defaultContentBackgroundColor)(props),
+      },
+    })
   }
 });
 

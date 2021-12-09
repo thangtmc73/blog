@@ -4,7 +4,6 @@ import matter from "gray-matter";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemote } from "next-mdx-remote";
 import PostDetailHeader from "./components/PostDetailHeader";
 import styles from "styles/PostDetail.module.scss";
 import className from "utils/className";
@@ -12,7 +11,7 @@ import ThemeConfig from "theme/theme-config";
 import {
   ThemeBox,
 } from "components/ThemeComponent";
-
+import MarkdownView from "components/MarkdownView";
 function PostPage({
   title,
   description,
@@ -46,7 +45,7 @@ function PostPage({
             pr={8}
             pt={6}
           >
-            {mdxSource && <MDXRemote {...mdxSource} />}
+            <MarkdownView mdxSource={mdxSource} />
           </ThemeBox>
         </div>
       </ThemeBox>
