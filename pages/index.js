@@ -1,4 +1,6 @@
 import Head from "next/head";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+
 import styles from "styles/Layout.module.scss";
 import className from "utils/className";
 
@@ -13,3 +15,9 @@ export default function Home() {
     </div>
   )
 }
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...await serverSideTranslations(locale, ["common"]),
+  },
+});

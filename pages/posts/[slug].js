@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import PostDetailHeader from "./components/PostDetailHeader";
@@ -53,22 +54,32 @@ function PostPage({
   )
 }
 
-const getStaticPaths = async () => {
+const getStaticPaths = async ({ locales }) => {
   const files = fs.readdirSync(path.join("posts"))
 
-  const paths = files.map(filename => ({
+  const enPaths = files.map(filename => ({
     params: {
-      slug: filename.replace(".mdx", "")
+      slug: filename.replace(".mdx", ""),
+      locale: "en"
     }
-  }))
+  }));
+  const viPaths = files.map(filename => ({
+    params: {
+      slug: filename.replace(".mdx", ""),
+      locale: "vi"
+    }
+  }));
 
   return {
-    paths,
-    fallback: false
+    paths: [
+      ...enPaths,
+      ...viPaths,
+    ],
+    fallback: true
   }
 }
 
-const getStaticProps = async ({ params: { slug } }) => {
+const getStaticProps = async ({ params: { slug }, locale }) => {
   const markdownWithMeta = fs.readFileSync(path.join("posts",
     slug + ".mdx"), "utf-8")
 
@@ -84,6 +95,7 @@ const getStaticProps = async ({ params: { slug } }) => {
 
   return {
     props: {
+      ...await serverSideTranslations(locale, ["common"]),
       title,
       description,
       date,
