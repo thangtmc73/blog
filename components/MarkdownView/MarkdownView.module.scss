@@ -1,0 +1,44 @@
+.markdownView {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 24px;
+    color: #0026ca;
+    margin-top: 12px;
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+  p {
+    margin: 8px 0px;
+    code {
+      background-color: #e4e5e5;
+      padding: 2px 4px;
+    }
+    a {
+      padding: 2px;
+      color: #0026ca;
+    }
+    a:hover {
+      border-bottom: 2px solid #0026ca;
+    }
+  }
+}
+
+.markdownView.darkMode {
+  h1, h2, h3, h4, h5, h6 {
+    color: #efeb5b;
+  }
+  p {
+    color: white;
+    code {
+      background-color: #282a36;
+      color: white;
+    }
+  }
+}
