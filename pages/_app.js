@@ -1,3 +1,4 @@
+import { appWithTranslation } from 'next-i18next'
 import { ChakraProvider } from "@chakra-ui/react";
 import "../styles/globals.css";
 import Header from "components/Header"
@@ -12,4 +13,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp
+export default appWithTranslation(MyApp);
