@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router'
-
+import { useRouter } from "next/router";
 import {
   Menu,
   MenuButton,
@@ -9,7 +8,17 @@ import {
 } from "@chakra-ui/react";
 
 function LanguageButton() {
-  const { locale: currentLocale, locales } = useRouter()
+  const {
+    locale: currentLocale,
+    locales,
+    pathname,
+    asPath,
+    query,
+    push 
+  } = useRouter();
+  function handleLanguageItemClick(nextLocale) {
+    push({ pathname, query }, asPath, { locale: nextLocale })
+  }
   return (
     <Menu>
       <MenuButton as={Button} alignItems={"center"} justifyContent={"center"}>
@@ -22,6 +31,7 @@ function LanguageButton() {
               key={locale}
               value={locale}
               isChecked={locale === currentLocale}
+              onClick={() => handleLanguageItemClick(locale)}
             >
               {locale}
             </MenuItemOption>
