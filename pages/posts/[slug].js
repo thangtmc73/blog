@@ -46,7 +46,7 @@ function PostPage({
             pr={8}
             pt={6}
           >
-            <MDXRemote {...mdxSource} />
+            {mdxSource && <MDXRemote {...mdxSource} />}
           </ThemeBox>
         </div>
       </ThemeBox>
