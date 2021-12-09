@@ -15,13 +15,13 @@ export default function ListPosts({ posts }) {
       {posts && posts.length > 0 ? (
         <Grid gridTemplateColumns={gridTemplateColumns}>
           {posts.map((post, i) => {
-            const { title, description, date, category, slug } = post;
+            const { title, description, date, categories, slug } = post;
             return (
               <Post
                 title={title}
                 description={description}
                 date={date}
-                category={category}
+                categories={categories}
                 slug={slug}
                 key={i}
               />

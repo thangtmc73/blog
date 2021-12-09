@@ -16,7 +16,7 @@ function PostPage({
   title,
   description,
   date,
-  category,
+  categories,
   tags,
   mdxSource,
 }) {
@@ -31,7 +31,7 @@ function PostPage({
             title={title}
             description={description}
             date={date}
-            category={category}
+            categories={categories}
             tags={tags}
           />
         </div>
@@ -87,7 +87,7 @@ const getStaticProps = async ({ params: { slug }, locale }) => {
     title,
     description,
     date,
-    category = "",
+    categories = "",
     tags = []
   } = data;
   const mdxSource = await serialize(content);
@@ -98,7 +98,7 @@ const getStaticProps = async ({ params: { slug }, locale }) => {
       title,
       description,
       date,
-      category,
+      categories,
       tags,
       slug,
       mdxSource

@@ -36,14 +36,14 @@ export const getStaticProps = async ({ locale }) => {
       title,
       description = "",
       date,
-      category = "",
+      categories = [],
       tags = []
     } = data;
     return {
       title,
       description,
       date,
-      category,
+      categories,
       tags,
       slug: filename.split('.')[0]
     }

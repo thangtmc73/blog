@@ -4,7 +4,7 @@ import { ThemeText } from "components/ThemeComponent";
 import styles from "./PostDetailHeader.module.scss";
 import ThemeConfig from "theme/theme-config";
 
-function PostDetailHeader({ title, description, date, category, tags }) {
+function PostDetailHeader({ title, description, date, categories, tags }) {
   return (
     <div className={styles.container}>
       <ThemeText
@@ -24,7 +24,11 @@ function PostDetailHeader({ title, description, date, category, tags }) {
         </ThemeText>
       )}
       <HStack mt={4} spacing={4}>
-        {category && <Tag variant={"solid"}>{category}</Tag>}
+        {categories?.map(category => {
+          return (
+            <Tag key={category} variant={"solid"}>{category}</Tag>
+          )
+        })}
         {tags?.map(tag => {
           return (
             <Tag key={tag}>{tag}</Tag>

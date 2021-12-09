@@ -4,7 +4,7 @@ import styles from "./ListPosts.module.scss";
 import { ThemeBox, ThemeText } from "components/ThemeComponent";
 import ThemeConfig from "theme/theme-config";
 
-function Post({ title, description, date, category, slug }) {
+function Post({ title, description, date, categories, slug }) {
   const minDateHeight = useBreakpointValue({ base: "auto", md: "100px" });
   const postPaddingTop = useBreakpointValue({ base: 0, md: 4 });
   const writtenDate = dayjs(date).format("DD/MM/YYYY");
@@ -34,13 +34,17 @@ function Post({ title, description, date, category, slug }) {
         paddingRight={4}
         paddingBottom={8}
       >
-        <ThemeText
-          colorConfig={ThemeConfig.subText}
-          fontSize="sm"
-          fontWeight={"medium"}
-        >
-          {category}
-        </ThemeText>
+        {categories?.map(category => (
+          <ThemeText
+            key={category}
+            colorConfig={ThemeConfig.subText}
+            fontSize="sm"
+            fontWeight={"medium"}
+          >
+            {category}
+          </ThemeText>
+        ))}
+
         <ThemeText
           colorConfig={ThemeConfig.highlightText}
           fontSize="md"
