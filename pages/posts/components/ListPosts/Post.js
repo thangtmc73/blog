@@ -1,68 +1,78 @@
-import { Link, useBreakpointValue } from "@chakra-ui/react"
-import dayjs from "dayjs";
-import styles from "./ListPosts.module.scss";
-import { ThemeBox, ThemeText } from "components/ThemeComponent";
+import {
+  Link,
+  HStack,
+  Tag,
+  TagLabel,
+  TagLeftIcon,
+} from "@chakra-ui/react"
+ import { FiTag } from "react-icons/fi";
+ import { useTranslation } from "next-i18next";
+import { ThemeBox, ThemeText, ThemeTag } from "components/ThemeComponent";
 import ThemeConfig from "theme/theme-config";
 
-function Post({ title, description, date, categories, slug }) {
-  const minDateHeight = useBreakpointValue({ base: "auto", md: "100px" });
-  const postPaddingTop = useBreakpointValue({ base: 0, md: 4 });
-  const writtenDate = dayjs(date).format("DD/MM/YYYY");
+function Post({ title, description, categories, tags, slug }) {
+  const { t } = useTranslation("post");
   return (
-    <>
-      <ThemeBox
-        bgColorConfig={ThemeConfig.defaultContentBackgroundColor}
-        minH={minDateHeight}
-        paddingTop={4}
-        paddingLeft={4}
-        paddingRight={4}
-      >
-        <ThemeText
-          colorConfig={ThemeConfig.subText}
-          fontSize="sm"
-          fontWeight={"medium"}
-        >
-          {writtenDate}
-        </ThemeText>
-      </ThemeBox>
-      <ThemeBox
-        bgColorConfig={ThemeConfig.defaultContentBackgroundColor}
-        className={styles.postItemContent}
-        minH={100}
-        paddingTop={postPaddingTop}
-        paddingLeft={4}
-        paddingRight={4}
-        paddingBottom={8}
-      >
+    <ThemeBox
+      bgColorConfig={ThemeConfig.listContentItemBackgroundColor}
+      minH={100}
+      paddingTop={8}
+      paddingLeft={{ base: 4, md: 8 }}
+      paddingRight={{ base: 4, md: 8 }}
+      paddingBottom={8}
+      borderRadius={12}
+    >
+      <HStack>
         {categories?.map(category => (
-          <ThemeText
+          <ThemeTag
             key={category}
-            colorConfig={ThemeConfig.subText}
+            bgColorConfig={ThemeConfig.postCategoryBackgroundColor}
+            colorConfig={ThemeConfig.highlightText}
             fontSize="sm"
             fontWeight={"medium"}
           >
             {category}
-          </ThemeText>
+          </ThemeTag>
         ))}
-
+      </HStack>
+      <ThemeText
+        colorConfig={ThemeConfig.highlightText}
+        fontSize="xl"
+        fontWeight={"bold"}
+        mt={2}
+      >
+        <Link href={'/posts/' + slug}>
+          {title}
+        </Link>
+      </ThemeText>
         <ThemeText
-          colorConfig={ThemeConfig.highlightText}
+          colorConfig={ThemeConfig.primaryText}
           fontSize="md"
-          fontWeight={"bold"}
-        >
-          <Link href={'/posts/' + slug}>
-            {title}
-          </Link>
-        </ThemeText>
-        <ThemeText
-          colorConfig={ThemeConfig.subText}
-          fontSize="sm"
-          mt={1}
+          mt={3}
         >
           {description}
         </ThemeText>
+        <ThemeText
+          colorConfig={ThemeConfig.highlightText}
+          fontSize="sm"
+          fontWeight={"bold"}
+          mt={3}
+        >
+          <Link href={'/posts/' + slug}>
+            {t("see_more")}
+          </Link>
+        </ThemeText>
+        <HStack mt={4} spacing={1}>
+        {tags?.map(tag => {
+          return (
+            <Tag key={tag}borderRadius="full">
+              <TagLeftIcon size={"sm"} as={FiTag} />
+              <TagLabel>{tag}</TagLabel>
+            </Tag>
+          )
+        })}
+      </HStack>
       </ThemeBox>
-    </>
   )
 }
 
