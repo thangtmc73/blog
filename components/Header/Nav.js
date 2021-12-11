@@ -11,7 +11,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import DarkModeButton from "./DarkModeButton";
-import LanguageButton from "./LanguageButton";
+// import LanguageButton from "./LanguageButton";
 import ThemeConfig from "theme/theme-config";
  import { FiX } from "react-icons/fi";
 import { useEffect } from "react";
@@ -92,7 +92,7 @@ function Nav({ toggleOn, onToggle }) {
         direction={"row"}
       >
         <DarkModeButton />
-        <LanguageButton />
+        {/* <LanguageButton /> */}
       </Stack>
     </Stack>
   )
