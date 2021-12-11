@@ -12,6 +12,7 @@ import {
   ThemeBox,
 } from "components/ThemeComponent";
 import MarkdownView from "components/MarkdownView";
+
 function PostPage({
   title,
   description,
@@ -94,7 +95,7 @@ const getStaticProps = async ({ params: { slug }, locale }) => {
 
   return {
     props: {
-      ...await serverSideTranslations(locale, ["common"]),
+      ...await serverSideTranslations(locale, ["common", "post"]),
       title,
       description,
       date,

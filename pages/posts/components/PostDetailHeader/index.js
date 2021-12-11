@@ -1,10 +1,12 @@
 import dayjs from "dayjs";
 import { Tag, HStack } from "@chakra-ui/react";
+import { useTranslation } from "next-i18next";
 import { ThemeText } from "components/ThemeComponent";
 import styles from "./PostDetailHeader.module.scss";
 import ThemeConfig from "theme/theme-config";
 
 function PostDetailHeader({ title, description, date, categories, tags }) {
+  const { t } = useTranslation("post");
   return (
     <div className={styles.container}>
       <ThemeText
@@ -40,7 +42,7 @@ function PostDetailHeader({ title, description, date, categories, tags }) {
         mt={3}
         fontSize="md"
       >
-          Written on <b>{dayjs(date).format("DD MMM YYYY")}</b>
+          {t("written_at")} <b>{dayjs(date).format("DD-MM-YYYY")}</b>
       </ThemeText>
     </div>
   )

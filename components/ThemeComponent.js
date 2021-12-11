@@ -1,6 +1,7 @@
 import {
   Text,
   Box,
+  Tag,
   useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -26,6 +27,7 @@ function ThemeComponent(Component) {
   return WrapperComponent;
 }
 
+export const ThemeTag = ThemeComponent(Tag);
 export const ThemeText = ThemeComponent(Text);
 export const ThemeBox = ThemeComponent(Box);
 
