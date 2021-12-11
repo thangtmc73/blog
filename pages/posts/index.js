@@ -2,25 +2,30 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-
+import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import ListPosts from "./components/ListPosts";
-import styles from "styles/Layout.module.scss";
+import styles from "styles/ListDefault.module.scss";
 import className from "utils/className";
 import { ThemeBox } from "components/ThemeComponent";
 import ThemeConfig from "theme/theme-config";
 
 export default function Posts({ posts }) {
+  const { t } = useTranslation("post");
   return (
     <div className={styles.page}>
       <Head>
         <title>Posts</title>
       </Head>
       <ThemeBox
-        bgColorConfig={ThemeConfig.defaultContentBackgroundColor}
+        // height="100%"
+        bgColorConfig={ThemeConfig.listContentBackgroundColor}
       >
         <div className={className(styles.maxWidthWrapper)}>
-          <ListPosts posts={posts} />
+          <ListPosts
+            title={t("all_posts")}
+            posts={posts}
+          />
         </div>
       </ThemeBox>
     </div>
@@ -56,7 +61,7 @@ export const getStaticProps = async ({ locale }) => {
   });
   return {
     props: {
-      ...await serverSideTranslations(locale, ["common"]),
+      ...await serverSideTranslations(locale, ["common", "post"]),
       posts
     }
   }
