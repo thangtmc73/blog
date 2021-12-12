@@ -1,0 +1,175 @@
+---
+title: "Từ khóa defer trong Go"
+date: "2021-12-12T22:47:31+07:00"
+description: Bài viết này viết về defer trong Golang
+categories:
+  - technical
+tags:
+  - go
+  - fundemental
+  - journal
+---
+
+# Khái niệm
+"Defer" trong tiếng Anh có nghĩa là hoãn lại. Tương tự, `defer` là một từ khóa trong Go, đi kèm với một câu lệnh gọi hàm (function call). Câu lệnh gọi hàm này sẽ được hoãn thực hiện cho đến khi hàm chứa cậu lệnh `defer` đó thực hiện xong.
+```go
+package main
+
+import "fmt"
+
+func main() {
+  defer fmt.Println("world")
+
+  fmt.Println("hello")
+}
+// === Result: === 
+// hello
+// world
+```
+# Các đặc điểm
+## Có nhiều lần gọi `defer` lần lượt
+```go
+import fmt
+package main
+
+import "fmt"
+
+func main() {
+  defer fmt.Println("My name is Gopher")
+  defer fmt.Println("world")
+
+  fmt.Println("hello")
+}
+// === Result: === 
+// hello
+// world
+// My name is Gopher
+```
+Ở ví dụ ở phàn Khái niệm, ta sẽ thấy `hello` được in ra trước `world`. Khi ta sử dụng từ khóa `defer` trước một câu lệnh gọi hàm `fmt.Println("My name is Gopher")`, Go sẽ đưa câu lệnh gọi hàm đó vào một `stack` tạm hoãn. Tương tự, `fmt.Println("world")` cũng được đưa vào stack tạm hoãn đó. Sau khi hàm `main` đã thực thi xong, nó sẽ thực thi các câu lệnh gọi hàm đang chờ trong stack. Các câu lện gọi hàm này được thực hiện theo thứ tự, `cậu lệnh nào vào stack trước, thực thi sau`:
+- Thêm `fmt.Println("My name is Gopher")` vào stack.
+- Thêm `fmt.Println("world")` vào stack.
+- Thực thi `fmt.Println("hello")`.
+- Thực thi `fmt.Println("world")` bị hoãn.
+- Thực thi `fmt.Println("My name is Gopher")` bị hoãn.
+## `defer` với một hàm có đối số
+```go
+package main
+
+import "fmt"
+
+func main() {
+  name := "somebody"
+  defer fmt.Println(name)
+  name = "Gopher"
+  defer fmt.Println(name)
+  fmt.Println(name)
+}
+// === Result: === 
+// Gopher
+// Gopher
+// somebody
+```
+Những câu lệnh `fmt.Println()` trong đoạn code trên nhận đối số là biến `name`. Giá trị của `name` truyền vào những câu lệnh gọi hàm với `defer` là giá trị của `name` tại thời điểm những câu lệnh gọi hàm đó bị hoãn:
+- Khai báo và gán `name` có giá trị `"somebody"`.
+- Thêm `fmt.Println("somebody")` vào stack.
+- Gán `name` giá trị `"Gopher"`.
+- Thêm `fmt.Println("Gopher")` vào stack.
+- Thực thi `fmt.Println(name)` với `name` có giá trị `"Gopher"`.
+- Thực thi `fmt.Println("Gopher")`.
+- Thực thi `fmt.Println("somebody")`.
+## `defer` có thể đọc và ghi giá trị trả về của hàm chứa câu lệnh `defer`
+```go
+func c() (i int) {
+  defer func() { i++ }()
+  return 1
+}
+// === Result: === 
+// 2
+```
+Bằng dùng `i` để trỏ tới giá trị trả về hàm `c`, `defer` có thể đọc và ghi giá trị của `i`, từ đó đọc và ghi giá trị trả về của hàm `c`. 
+# Công dụng
+`defer` thường được dùng cho các thao tác dọn dẹp (cleanup), ví dụ như dùng để đóng 1 file đã mở trước đó. Nó giúp giảm sai sót khi có quá nhiều đối tượng cần dọn dẹp trong hàm.
+
+Ta viết một function `CopyFile` làm nhiệm vụ copy file từ `srcName` qua `dstName`, ta có thể viết như sau:
+```go
+func CopyFile(dstName, srcName string) (written int64, err error) {
+  // Open the file `srcName`
+  src, err := os.Open(srcName)
+  if err != nil {
+    return;
+  }
+  // Create the file `dstName`
+  dst, err := os.Create(dstName)
+  if err != nil {
+    return
+  }
+  // copy file from src to dst
+  written, err = io.Copy(dst, src)
+  dst.Close()
+  src.Close()
+  return
+}
+```
+Trong trường hợp `os.Create(dstName)` thất bại, hàm `CopyFile` sẽ trả về và kết thúc mà không thực hiện `src.Close()`. Chúng ta có thể bổ sung chúng trước khi trả về và kết thúc hàm `CopyFile`.
+```go
+// func CopyFile
+// ...
+  // Create the file `dstName`
+  dst, err := os.Create(dstName)
+  if err != nil {
+    src.Close()
+    return
+  }
+// ...
+```
+Ta có thể bổ sung câu lệnh `src.Close` trong tất cả những câu lệnh điều kiện kiểm tra thất bại. Tuy nhiên, khi hàm trở nên phức tạp, có nhiều câu điều kiện kiểm tra thát bại hơn, có nhiều yếu tố khác của cần được dọn dẹp tương tự `src.Close`, khả năng bị sót là rất cao.
+
+Vậy nên với `defer`, ngay khi mở file `os.Open(src)` thành công, ta có thể hẹn trước ngay `src.Close()`.
+```go
+func CopyFile(dstName, srcName string) (written int64, err error) {
+  src, err := os.Open(srcName)
+  if err != nil {
+    return
+  }
+  defer src.Close()
+
+  dst, err := os.Create(dstName)
+  if err != nil {
+    return
+  }
+  defer dst.Close()
+
+  return io.Copy(dst, src)
+}
+```
+Ngoài ra, việc quản lý các câu lệnh gọi hàm với `defer` theo `stack` cũng là một dụng ý hay. Nó giúp ta quản lý thứ tự dọn dẹp các thành phần trong chương trình theo mức độ quan trọng của chúng.
+
+Xét cùng ví dụ ở trên, nhưng ta không sử dụng package `os` mặc định của `Go` để thực hiện việc mở và đóng file nữa. Ta sử dụng `CustomFileManager`
+```go
+func CopyFile(dstName, srcName string) (written int64, err error) {
+  manager, err := CustomFileManager.New()
+  if (err != nil) {
+    return
+  }
+  defer manager.Destroy()
+
+  src, err := manager.Open(srcName)
+  if err != nil {
+    return
+  }
+  defer src.Close()
+
+  dst, err := manager.Create(dstName)
+  if err != nil {
+    return
+  }
+  defer dst.Close()
+
+  return io.Copy(dst, src)
+}
+```
+Do việc mở và đóng file đang phụ thuộc vào `CustomFileManager`, câu lệnh `manager.Destroy()` nên được đặt sau cùng, sau khi đã thực thực `src.Close()` và `dst.Close()`. Bởi vì tổ chức theo dạng stack, việc thực hiện nó trở nên vô cùng dễ dàng, cái gì khởi tạo trước tiên thì sẽ bị hủy sau cùng.
+# Tham khảo
+[A Tour of Go - Defer](https://go.dev/tour/flowcontrol/12)
+
+[Defer, Panic, and Recover](https://go.dev/blog/defer-panic-and-recover)
