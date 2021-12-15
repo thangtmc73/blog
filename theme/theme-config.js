@@ -1,5 +1,6 @@
 const Config = {
   defaultHeaderBackgroundColor: ["#f4f5f6", "#1A202C"],
+  defaultFooterBackgroundColor: ["#f4f5f6", "#0E141B"],
   defaultContentBackgroundColor: ["white", "#0E141B"],
   listContentBackgroundColor: ["#f4f5f6", "#0E141B"],
   listContentItemBackgroundColor: ["white", "#303841"],
