@@ -1,4 +1,4 @@
-import { MDXRemote } from "next-mdx-remote";
+import ReactMarkdown from 'react-markdown'
 import { useColorMode } from "@chakra-ui/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -25,14 +25,17 @@ const CodeBlock = {
   }
 }
 
-function MarkdownView({ mdxSource }) {
+function MarkdownView({ markdown }) {
   const { colorMode } = useColorMode();
-  if (!mdxSource) {
+  if (!markdown) {
     return null;
   }
   return (
     <div className={className(styles.markdownView, colorMode === "dark"  && styles.darkMode)}>
-      <MDXRemote {...mdxSource} components={CodeBlock} />
+      <ReactMarkdown
+        components={CodeBlock}>
+        {markdown}
+      </ReactMarkdown>
     </div>
   );
 }

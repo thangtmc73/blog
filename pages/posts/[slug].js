@@ -3,7 +3,6 @@ import path from "path";
 import matter from "gray-matter";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
-import { serialize } from "next-mdx-remote/serialize";
 import PostDetailHeader from "./components/PostDetailHeader";
 import styles from "styles/PostDetail.module.scss";
 import className from "utils/className";
@@ -19,7 +18,7 @@ function PostPage({
   date,
   categories,
   tags,
-  mdxSource,
+  content,
 }) {
   return (
     <div className={styles.page}>
@@ -46,7 +45,7 @@ function PostPage({
             pr={8}
             pt={6}
           >
-            <MarkdownView mdxSource={mdxSource} />
+            <MarkdownView markdown={content} />
           </ThemeBox>
         </div>
       </ThemeBox>
@@ -91,7 +90,6 @@ const getStaticProps = async ({ params: { slug }, locale }) => {
     categories = "",
     tags = []
   } = data;
-  const mdxSource = await serialize(content);
 
   return {
     props: {
@@ -102,7 +100,7 @@ const getStaticProps = async ({ params: { slug }, locale }) => {
       categories,
       tags,
       slug,
-      mdxSource
+      content: content,
     }
   }
 }
