@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
-import ListPosts from "./components/ListPosts";
+import ListPosts from "components/ListPosts";
 import styles from "styles/ListDefault.module.scss";
 import className from "utils/className";
 import { ThemeBox } from "components/ThemeComponent";
