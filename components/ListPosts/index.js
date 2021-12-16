@@ -1,7 +1,7 @@
 import { useBreakpointValue } from "@chakra-ui/react"
 import { Grid, Box } from "@chakra-ui/react";
 import Post from "./Post";
-import { ThemeText } from "components/ThemeComponent";
+import { ThemeText, ThemeBox } from "components/ThemeComponent";
 import styles from "./ListPosts.module.scss";
 
 export default function ListPosts({ title, posts }) {
@@ -40,8 +40,18 @@ export default function ListPosts({ title, posts }) {
           })}
         </Grid>
       ) : (
-        <h2>No added posts</h2>
+        <ThemeBox
+          mt={12}
+        >
+          <ThemeText
+            fontSize="2xl"
+            textAlign="center"
+          >
+            {"Không có bài viết nào"}
+          </ThemeText>
+        </ThemeBox>
       )}
+      
     </Box>
   )
 }
