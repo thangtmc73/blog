@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Tag, HStack } from "@chakra-ui/react";
+import { Tag, HStack, Link } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import { ThemeText } from "components/ThemeComponent";
 import styles from "./PostDetailHeader.module.scss";
@@ -28,13 +28,21 @@ function PostDetailHeader({ title, description, date, categories, tags }) {
       <HStack mt={4} spacing={4}>
         {categories?.map(category => {
           return (
-            <Tag key={category} variant={"solid"}>{category}</Tag>
-          )
+            <Tag key={category} variant={"solid"}>
+              <Link href={'/category/' + category}>
+                {category}
+              </Link>
+            </Tag>
+          );
         })}
         {tags?.map(tag => {
           return (
-            <Tag key={tag}>{tag}</Tag>
-          )
+            <Tag key={tag}>
+              <Link href={'/tag/' + tag}>
+                {tag}
+              </Link>
+            </Tag>
+          );
         })}
       </HStack>
       <ThemeText

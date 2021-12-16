@@ -4,7 +4,7 @@ import {
   Tag,
   TagLabel,
   TagLeftIcon,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
  import { FiTag } from "react-icons/fi";
  import { useTranslation } from "next-i18next";
 import { ThemeBox, ThemeText, ThemeTag } from "components/ThemeComponent";
@@ -31,7 +31,9 @@ function Post({ title, description, categories, tags, slug }) {
             fontSize="sm"
             fontWeight={"medium"}
           >
-            {category}
+            <Link href={'/category/' + category}>
+              {category}
+            </Link>
           </ThemeTag>
         ))}
       </HStack>
@@ -67,7 +69,11 @@ function Post({ title, description, categories, tags, slug }) {
           return (
             <Tag key={tag}borderRadius="full">
               <TagLeftIcon size={"sm"} as={FiTag} />
-              <TagLabel>{tag}</TagLabel>
+              <TagLabel>
+                <Link href={'/tag/' + tag}>
+                  {tag}
+                </Link>
+              </TagLabel>
             </Tag>
           )
         })}
