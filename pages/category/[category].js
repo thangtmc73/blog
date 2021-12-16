@@ -23,7 +23,7 @@ export default function SpecifiedCategory({ category, posts }) {
       >
         <div className={className(styles.maxWidthWrapper)}>
           <ListPosts
-            title={`${t("category")} "${category}"`}
+            title={category && `${t("category")} "${category}"`}
             posts={posts}
           />
         </div>
