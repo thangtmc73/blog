@@ -18,3 +18,13 @@ a {
 .disable-scroll {
   overflow: hidden;
 }
+
+.page-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-wrapper > .page-content {
+  flex: 1;
+}
