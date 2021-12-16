@@ -10,12 +10,12 @@ import className from "utils/className";
 import { ThemeBox } from "components/ThemeComponent";
 import ThemeConfig from "theme/theme-config";
 
-export default function Posts({ posts }) {
+export default function Posts({ tag, posts }) {
   const { t } = useTranslation("post");
   return (
     <div className={styles.page}>
       <Head>
-        <title>Posts</title>
+        <title>{`Tag "${tag}"`}</title>
       </Head>
       <ThemeBox
         // height="100%"
@@ -23,7 +23,7 @@ export default function Posts({ posts }) {
       >
         <div className={className(styles.maxWidthWrapper)}>
           <ListPosts
-            title={t("all_posts")}
+            title={tag && `${t("tag")} "${tag}"`}
             posts={posts}
           />
         </div>
@@ -32,7 +32,43 @@ export default function Posts({ posts }) {
   )
 }
 
-export const getStaticProps = async ({ locale }) => {
+export const getStaticPaths = async ({ locales }) => {
+  const files = fs.readdirSync(path.join("posts"));
+  const mapTags = {};
+  files.forEach(filename => {
+    const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8');
+    const { data } = matter(markdownWithMeta);
+    const {
+      tags = []
+    } = data;
+    tags.forEach(tag => {
+      mapTags[tag] = true;
+    });
+  });
+
+  function generatePathWithLocale(locale) {
+    return Object.keys(mapTags).map(tag => ({
+      params: {
+        tag: tag,
+        locale,
+      }
+    }));
+  }
+
+  const paths = locales?.reduce((oldPaths, locale) => {
+    return [
+      ...oldPaths,
+      ...generatePathWithLocale(locale),
+    ]
+  }, []);
+
+  return {
+    paths: paths,
+    fallback: true
+  }
+}
+
+export const getStaticProps = async ({ params: { tag }, locale }) => {
   const files = fs.readdirSync(path.join('posts'))
   const posts = files.map(filename => {
     const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8');
@@ -52,6 +88,8 @@ export const getStaticProps = async ({ locale }) => {
       tags,
       slug: filename.split('.')[0]
     }
+  }).filter(({ tags }) => {
+    return tags.includes(tag);
   }).sort((A, B) => {
     const { date: aDate } = A;
     const { date: bDate } = B;
@@ -62,6 +100,7 @@ export const getStaticProps = async ({ locale }) => {
   return {
     props: {
       ...await serverSideTranslations(locale, ["common", "post"]),
+      tag,
       posts
     }
   }

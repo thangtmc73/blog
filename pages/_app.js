@@ -8,9 +8,13 @@ import theme from "theme";
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
+      <div className="page-wrapper">
       <Header />
-      <Component {...pageProps} />
+        <div className="page-content">
+          <Component {...pageProps} />
+        </div>
       <Footer />
+      </div>
     </ChakraProvider>
   );
 }
