@@ -23,7 +23,7 @@ export default function Posts({ tag, posts }) {
       >
         <div className={className(styles.maxWidthWrapper)}>
           <ListPosts
-            title={`${t("tag")} "${tag}"`}
+            title={tag && `${t("tag")} "${tag}"`}
             posts={posts}
           />
         </div>
