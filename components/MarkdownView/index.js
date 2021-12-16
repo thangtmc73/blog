@@ -11,9 +11,11 @@ const CodeBlock = {
     return !inline && match ? (
       <SyntaxHighlighter 
         style={dracula}
+        className={styles.codeBlock}
         showLineNumbers={true}
         language={match[1]} 
-        PreTag="div" {...props}
+        PreTag="div"
+        {...props}
       >
         {String(children).replace(/\n$/, "")}
       </SyntaxHighlighter>
