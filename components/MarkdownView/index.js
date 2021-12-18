@@ -2,6 +2,7 @@ import ReactMarkdown from 'react-markdown'
 import { useColorMode } from "@chakra-ui/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import remarkGfm from 'remark-gfm'
 import styles from "./MarkdownView.module.scss";
 import className from "utils/className";
 
@@ -35,7 +36,9 @@ function MarkdownView({ markdown }) {
   return (
     <div className={className(styles.markdownView, colorMode === "dark"  && styles.darkMode)}>
       <ReactMarkdown
-        components={CodeBlock}>
+        components={CodeBlock}
+        remarkPlugins={[remarkGfm]} 
+      >
         {markdown}
       </ReactMarkdown>
     </div>
