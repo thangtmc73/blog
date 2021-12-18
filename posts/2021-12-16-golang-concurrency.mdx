@@ -1,0 +1,117 @@
+---
+title: "Concurrency trong Go"
+date: "2021-12-16T22:47:31+07:00"
+description: Bài viết này viết về khái niệm concurrency và cách Go xử lý concurrency
+categories:
+  - technical
+tags:
+  - go
+  - fundemental
+  - journal
+---
+
+# Concurrency là gì?
+Khi ta nói về `concurrency` thường sẽ đi kèm một khái niệm khác là `parallelism`. Cả hai đều nói về cách máy tính xử lý nhiều tác vụ cần thực hiện tại một thời điểm.
+
+Bản chất, tại một thời điểm, mỗi một nhân CPU chỉ có thể thực hiện được một tác vụ. Đối với bộ xử lý đơn nhân (single-core processor), khi có nhiều tác vụ cần được thực hiện, chúng sẽ được thực hiện tuần tự từng tác vụ, xong tác vụ này tiếp tục thực hiện tác vụ khác. Điều đó có nghĩa là tại một thời điểm, bạn không thể vừa lướt web và nghe nhạc cùng một lúc, bạn bắt buộc phải tắt trình duyệt rồi mới có thể mở trình nghe nhạc lên và nghe bài hát.
+> Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once - Rob Pike
+
+Sau này, các bộ xử lý đa nhân (multi-core processor) xuất hiện. Mỗi một nhân CPU thực hiện một tác vụ, các tác vụ ở mỗi nhân có thể thực hiện cùng một lúc. Xử lý duyệt web có thể diễn ra ở một nhân CPU và nghe nhạc có thẻ thực hiện ở một nhân CPU khác tại một thời điểm, ta gọi đó là `parallelism`.
+
+Đối với `concurrency`, việc thực hiện các tác vụ không phụ thuộc vào đơn nhân hay đa nhân CPU. Chiến lược được đặt ra là mỗi tác vụ sẽ được cấp cho một khoảng thời gian nhất định để thực hiện, hết thời gian, ta sẽ tạm dừng thực hiện và chuyển qua thực hiện tác vụ khác. Khoảng thời gian thực hiện các tác vụ này diễn ra nhanh, dẫn đến con người có cảm giác các tác vụ được thực hiện cùng một lúc. Cụm từ "dealing with" có thể hiểu là dàn xếp thực hiện các tác vụ, chứ không phải thực hiện các tác vụ ("doing"). Tác vụ trình duyệt có thể chia nhỏ ra: xử lý URL, gửi yêu cầu truy cập, xử lý phản hồi, ...; tác vụ nghe nhạc chia nhỏ ra: truy cập thông tin bài hát, đọc nội dung tập tin, phát nhạc. Những tác vụ nhỏ hơn này được thực hiện đan xen với nhau trong khoảng thời gian cụ thể.
+
+Chúng ta đã đi qua tìm hiểu về `concurrency`. Những phần tiếp theo ta sẽ tìm hiểu về cách Go xử lý concurrency. Tôi sẽ sử dụng chữ "đồng thời" để miêu tả các tác vụ được thực hiện theo concurrency.
+# Goroutine
+Thông thường, các chương trình sẽ dùng multi-threading để thực hiện đồng thời nhiều tác vụ, trong đó mỗi thread sẽ thực hiện một tác vụ. Tương tự như `thread`, Go đưa ra khái niệm `goroutine`, trong đó các `goroutine` cũng được thực hiện đồng thời.
+
+Giữa `thread` và `goroutine` có một số khác biệt sau:
+
+| Thread      | Goroutine |
+| ----------- | ----------- |
+| Khởi tạo với kích thước cụ thể trong stack size, không đổi | Nhẹ, chỉ với vài KB trong `stack size`, có thể mở rộng hoặc thu nhỏ sau đó       |
+| Các thread giao tiếp với nhau qua vùng nhớ chung (shared memory). Chúng block và chờ nhau để truy cập vùng nhớ | Các goroutine giao tiếp với nhau qua `channel`|
+
+Theo định nghĩa của Go, goroutine là một hàm được thực hiện đồng thời với các goroutine khác trong cùng một khoảng không gian địa chỉ (address space).
+
+Bản thân hàm `main()` trong package `main` cũng là một goroutine (main goroutine), khi bạn tạo một goroutine mới trong hàm `main()`, `goroutine` đó sẽ chạy đồng thời với main goroutine. Khi main goroutine kết thúc, chương trình sẽ dừng lại và không cho phép thực thi bất kỳ goroutine nào khác nữa.
+
+Các goroutine được chạy trên nhiều thread của hệ điều hành cùng lúc, nếu thread này bị block (ví dụ chờ input), các thread khác vẫn tiếp tục chạy độc lập.
+
+Goroutine được tạo ra bằng cách thêm keyword `go` vào trước câu lệnh gọi hàm
+Ví dụ:
+```go
+package main
+
+import (  
+  "fmt"
+)
+
+func hello(s string) {
+  fmt.Println(s);
+}
+
+func main() {
+  go hello("Eskommst");
+  fmt.Println("hello")
+}
+// === Result: === 
+// hello
+```
+Ở dòng số 12, khi gọi hàm `hello("Eskommst")` ta đã thêm keyword `go` vào trước, câu lệnh `hello("Eskommst")` sẽ được thực thi trên một goroutine mới tách biệt với main goroutine. Tuy nhiên, tại sao chỉ in ra dòng chữ "hello"? Bởi vì sau khi in ra dòng chữ "hello" thì main goroutine cũng kết thức, hàm `main()` kết thúc, tất cả goroutine khác đều bị dừng lại.
+
+Ta sẽ bắt main goroutine chờ thêm 1 giây để in ra dòng chữ "Eskommst".
+```go
+package main
+
+import (  
+  "fmt"
+  "time"
+)
+
+func hello(s string) {
+  fmt.Println(s);
+}
+
+func main() {  
+  go hello("Eskommst");
+  fmt.Println("hello")
+  time.Sleep(1 * time.Second)
+}
+// === Result: === 
+// hello
+// Eskommst
+```
+# Channel
+
+`Channel` chính là phương tiện để các goroutine trao đổi dữ liệu với nhau.
+
+## Khai báo và định nghĩa channel
+Mỗi `channel` khi khai báo cần quy định một kiểu dữ liệu cụ thể dựa theo dữ liệu mà channel đó vận chuyển. Giá trị của channel lúc mới khai báo là `nil`, channel cần được định nghĩa bằng hàm `make()` tương tự `map` và `slice`.
+```go
+package main
+
+import "fmt"
+
+func main() {  
+  var ch chan int
+  if ch == nil {
+    fmt.Println("the channel is nil, going to define it")
+    ch = make(chan int)
+    fmt.Printf("type of the channel is %T", ch)
+  }
+}
+// === Result: === 
+// the channel is nil, going to define it
+// type of the channel is chan int
+```
+## Gửi và nhận dữ liệu từ channel
+Ta có `data` là biến chứa dữ liệu, `ch` là channel để chuyển dữ liệu `data` giữa các goroutine.
+```go
+data := <- ch // đọc dữ liệu từ ch ra data  
+ch <- data // ghi dữ liệu từ data đến ch  
+```
+Hãy nhớ rằng, hướng của mũi tên luôn xoay về hướng bên trái.
+# Tham khảo
+[Effective Go - Goroutine](https://go.dev/doc/effective_go#goroutines)
+
+[golangbot.com - Goroutines](https://golangbot.com/goroutines/)
