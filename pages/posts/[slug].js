@@ -11,7 +11,6 @@ import {
   ThemeBox,
 } from "components/ThemeComponent";
 import MarkdownView from "components/MarkdownView";
-import Discussion from "components/Discussion";
 
 function PostPage({
   title,
@@ -47,7 +46,6 @@ function PostPage({
             pt={6}
           >
             <MarkdownView markdown={content} />
-            <Discussion />
           </ThemeBox>
         </div>
       </ThemeBox>
