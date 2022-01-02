@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <Head>
-        <title>Posts</title>
+        <title>Home</title>
       </Head>
       <div className={className(styles.maxWidthWrapper, styles.mainContent)}>
       </div>
