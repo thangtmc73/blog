@@ -2,6 +2,7 @@ import { useBreakpointValue } from "@chakra-ui/react"
 import { Grid, Box } from "@chakra-ui/react";
 import Post from "./Post";
 import { ThemeText, ThemeBox } from "components/ThemeComponent";
+import ThemeConfig from "theme/theme-config";
 import styles from "./ListPosts.module.scss";
 
 export default function ListPosts({ title, posts }) {
@@ -15,7 +16,8 @@ export default function ListPosts({ title, posts }) {
       {title && (
         <ThemeText
           fontSize="2xl"
-          fontWeight="bold"
+          fontWeight="medium"
+          colorConfig={ThemeConfig.defaultSectionTitleColor}
           ml={6}
           mb={4}
         >
