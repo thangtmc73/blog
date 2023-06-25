@@ -1,7 +1,6 @@
 import { Link } from "@chakra-ui/react";
 import { FiTag } from "react-icons/fi";
 import { useTranslation } from "next-i18next";
-import ThemeConfig from "theme/theme-config";
 
 function Post({ title, description, categories, tags, slug }) {
   const { t } = useTranslation("post");
@@ -17,14 +16,7 @@ function Post({ title, description, categories, tags, slug }) {
     >
       <div className="flex">
         {categories?.map(category => (
-          <div
-            className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-sm px-2"
-            key={category}
-            bgColorConfig={ThemeConfig.postCategoryBackgroundColor}
-            colorConfig={ThemeConfig.highlightText}
-            fontSize="sm"
-            fontWeight={"medium"}
-          >
+          <div className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-sm px-2" key={category}>
             <Link href={'/category/' + category}>
               {category}
             </Link>

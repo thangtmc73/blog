@@ -1,7 +1,6 @@
 import { useBreakpointValue } from "@chakra-ui/react"
 import { Grid } from "@chakra-ui/react";
 import Post from "./Post";
-import { ThemeText, ThemeBox } from "components/ThemeComponent";
 
 export default function ListPosts({ title, posts }) {
   const gridTemplateColumns = useBreakpointValue({ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" });
@@ -32,18 +31,12 @@ export default function ListPosts({ title, posts }) {
           })}
         </Grid>
       ) : (
-        <ThemeBox
-          mt={12}
-        >
-          <ThemeText
-            fontSize="2xl"
-            textAlign="center"
-          >
+        <div className="mt-3">
+          <p className="text-2xl text-center">
             {"Không có bài viết nào"}
-          </ThemeText>
-        </ThemeBox>
+          </p>
+        </div>
       )}
-      
     </div>
   )
 }
