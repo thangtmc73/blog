@@ -31,8 +31,9 @@ function Nav({ toggleOn, onToggle }) {
 
   return (
     <div className={className(
-      "fixed md:relative top-0 left-0 right-0 bottom-0 p-8 md:p-0 z-10 md:z-auto md:bg-inherit bg-default-bg dark:bg-default-bg-d",
+      "fixed md:relative top-0 left-0 right-0 bottom-0 p-8 md:p-0 z-10 md:z-auto md:bg-transparent",
       !toggleOn && "hidden",
+      toggleOn && "bg-default-bg dark:bg-default-bg-d",
       "md:flex flex-1 flex-col md:flex-row justify-start md:justify-between md:items-center"
     )}>
       <div className="flex flex-col md:flex-row mb-4 md:mb-0 gap-2">
