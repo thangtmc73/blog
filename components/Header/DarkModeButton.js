@@ -1,25 +1,23 @@
 import {
-  IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useColorMode, useColorModeValue } from "@chakra-ui/color-mode";
+import { useColorModeValue } from "@chakra-ui/color-mode";
 
 import { FiSun, FiMoon } from "react-icons/fi";
+import { useContext } from "react";
+import ThemeContext from "theme/context";
 
 function DarkModeButton() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useContext(ThemeContext);
   const colorModeIconColor = useColorModeValue("black", "white");
   const iconColor = useBreakpointValue({ base: "white", md: colorModeIconColor });
   return (
-    <IconButton
-      size={25}
-      colorScheme={iconColor}
-      onClick={toggleColorMode}
-      icon={colorMode === "light"
-        ? <FiSun size={ICON_SIZE} color={iconColor} />
-        : <FiMoon size={ICON_SIZE} color={iconColor}/>
+    <button onClick={toggleColorMode}>
+      {colorMode === "light"
+        ? <FiSun size={ICON_SIZE} color={"black"} />
+        : <FiMoon size={ICON_SIZE} color={"white"} />
       }
-    />
+    </button>
   )
 }
 

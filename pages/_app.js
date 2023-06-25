@@ -3,19 +3,21 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "../styles/globals.css";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import theme from "theme";
+import ThemeProvider from "theme/ThemeProvider"
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={theme}>
-      <div className="page-wrapper">
+    <ThemeProvider>
+      <ChakraProvider>
+      <div className="flex flex-col h-screen">
       <Header />
-        <div className="page-content">
+        <div className="flex-1">
           <Component {...pageProps} />
         </div>
       <Footer />
       </div>
     </ChakraProvider>
+    </ThemeProvider>
   );
 }
 
