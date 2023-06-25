@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import className from "utils/className";
 import DarkModeButton from "./DarkModeButton";
-// import LanguageButton from "./LanguageButton";
 import { FiX } from "react-icons/fi";
 import { useEffect } from "react";
 
@@ -58,7 +57,6 @@ function Nav({ toggleOn, onToggle }) {
       </div>
       <div>
         <DarkModeButton />
-        {/* <LanguageButton /> */}
       </div>
     </div>
   )
