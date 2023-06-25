@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { Link } from "@chakra-ui/react";
 import { FiTag } from "react-icons/fi";
 import { useTranslation } from "next-i18next";
 
@@ -19,9 +18,9 @@ function PostDetailHeader({ title, description, date, categories, tags }) {
         {categories?.map(category => {
           return (
             <div className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-xs px-2" key={category}>
-              <Link href={'/category/' + category}>
+              <a className="hover:underline underline-offset-2" href={'/category/' + category}>
                 {category}
-              </Link>
+              </a>
             </div>
           );
         })}
@@ -29,11 +28,9 @@ function PostDetailHeader({ title, description, date, categories, tags }) {
           return (
             <div className="flex items-center rounded-md bg-green dark:bg-green-d text-default-fg-d dark:text-default-fg px-1 text-xs" key={tag}>
               <FiTag className="mr-1" size={12} />
-              <span>
-                <Link href={'/tag/' + tag}>
-                  {tag}
-                </Link>
-              </span>
+              <a className="hover:underline underline-offset-2" href={'/tag/' + tag}>
+                {tag}
+              </a>
             </div>
           );
         })}

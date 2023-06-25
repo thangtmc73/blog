@@ -1,4 +1,3 @@
-import { Link } from "@chakra-ui/react";
 import { FiTag } from "react-icons/fi";
 import { useTranslation } from "next-i18next";
 
@@ -17,24 +16,24 @@ function Post({ title, description, categories, tags, slug }) {
       <div className="flex">
         {categories?.map(category => (
           <div className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-xs px-2" key={category}>
-            <Link href={'/category/' + category}>
+            <a className="hover:underline underline-offset-2" href={'/category/' + category}>
               {category}
-            </Link>
+            </a>
           </div>
         ))}
       </div>
       <p className="text-xl font-bold text-purple dark:text-purple-d mt-1">
-        <Link href={'/posts/' + slug}>
+        <a className="hover:underline underline-offset-4" href={'/posts/' + slug}>
           {title}
-        </Link>
+        </a>
       </p>
       <p className="text-default-fg dark:text-default-fg-d text-md mt-2">
         {description}
       </p>
       <p className="text-default-fg dark:text-default-fg-d text-sm font-bold mt-2">
-        <Link href={'/posts/' + slug}>
+        <a className="hover:underline underline-offset-4" href={'/posts/' + slug}>
           {t("see_more")}
-        </Link>
+        </a>
       </p>
       <div className="flex mt-2 gap-1">
         {tags?.map(tag => {
@@ -42,9 +41,9 @@ function Post({ title, description, categories, tags, slug }) {
             <div className="flex items-center rounded-md bg-green dark:bg-green-d text-default-fg-d dark:text-default-fg px-1 text-xs" key={tag}>
               <FiTag className="mr-1" size={12} />
               <span>
-                <Link href={'/tag/' + tag}>
+                <a className="hover:underline underline-offset-2" href={'/tag/' + tag}>
                   {tag}
-                </Link>
+                </a>
               </span>
             </div>
           )
