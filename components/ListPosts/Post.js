@@ -16,7 +16,7 @@ function Post({ title, description, categories, tags, slug }) {
     >
       <div className="flex">
         {categories?.map(category => (
-          <div className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-sm px-2" key={category}>
+          <div className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-xs px-2" key={category}>
             <Link href={'/category/' + category}>
               {category}
             </Link>
@@ -36,10 +36,10 @@ function Post({ title, description, categories, tags, slug }) {
           {t("see_more")}
         </Link>
       </p>
-      <div className="flex mt-2 gap-2">
+      <div className="flex mt-2 gap-1">
         {tags?.map(tag => {
           return (
-            <div className="flex items-center rounded-md bg-green dark:bg-green-d text-default-fg-d dark:text-default-fg px-1" key={tag}>
+            <div className="flex items-center rounded-md bg-green dark:bg-green-d text-default-fg-d dark:text-default-fg px-1 text-xs" key={tag}>
               <FiTag className="mr-1" size={12} />
               <span>
                 <Link href={'/tag/' + tag}>
