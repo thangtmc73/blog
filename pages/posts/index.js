@@ -3,26 +3,15 @@ import path from "path";
 import matter from "gray-matter";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next";
-import Head from "next/head";
-import ListPosts from "components/ListPosts";
-import styles from "styles/ListDefault.module.scss";
+import ListPostsLayout from "layout/ListPosts";
 
 export default function Posts({ posts }) {
   const { t } = useTranslation("post");
   return (
-    <div className={styles.page}>
-      <Head>
-        <title>Posts</title>
-      </Head>
-      <div>
-        <div className="w-full max-w-screen-lg mx-auto">
-          <ListPosts
-            title={t("all_posts")}
-            posts={posts}
-          />
-        </div>
-      </div>
-    </div>
+    <ListPostsLayout
+      title={t("all_posts")}
+      data={posts}
+    />
   )
 }
 

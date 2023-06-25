@@ -3,32 +3,15 @@ import path from "path";
 import matter from "gray-matter";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useTranslation } from "next-i18next";
-import Head from "next/head";
-import ListPosts from "components/ListPosts";
-import styles from "styles/ListDefault.module.scss";
-import className from "utils/className";
-import { ThemeBox } from "components/ThemeComponent";
-import ThemeConfig from "theme/theme-config";
+import ListPostsLayout from "layout/ListPosts";
 
 export default function SpecifiedCategory({ category, posts }) {
   const { t } = useTranslation("post");
   return (
-    <div className={styles.page}>
-      <Head>
-        <title>{`Category "${category}"`}</title>
-      </Head>
-      <ThemeBox
-        // height="100%"
-        bgColorConfig={ThemeConfig.listContentBackgroundColor}
-      >
-        <div className={className(styles.maxWidthWrapper)}>
-          <ListPosts
-            title={category && `${t("category")} "${category}"`}
-            posts={posts}
-          />
-        </div>
-      </ThemeBox>
-    </div>
+    <ListPostsLayout
+      title={`${t("category")} "${category}"`}
+      data={posts}
+    />
   )
 }
 
