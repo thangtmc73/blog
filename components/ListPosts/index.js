@@ -1,26 +1,18 @@
 import { useBreakpointValue } from "@chakra-ui/react"
-import { Grid, Box } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import Post from "./Post";
 import { ThemeText, ThemeBox } from "components/ThemeComponent";
-import styles from "./ListPosts.module.scss";
 
 export default function ListPosts({ title, posts }) {
   const gridTemplateColumns = useBreakpointValue({ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" });
   return (
-    <Box
-      className={styles.listPosts}
-      marginLeft={4}
-      marginRight={4}
+    <div
+      className="pt-16 ml-2 mr-2"
     >
       {title && (
-        <ThemeText
-          fontSize="2xl"
-          fontWeight="bold"
-          ml={6}
-          mb={4}
-        >
+        <p className="text-2xl font-bold ml-2 mb-4 text-cyan dark:text-cyan-d">
           {title}
-        </ThemeText>
+        </p>
       )}
       {posts && posts.length > 0 ? (
         <Grid gridTemplateColumns={gridTemplateColumns} gap={4}>
@@ -52,6 +44,6 @@ export default function ListPosts({ title, posts }) {
         </ThemeBox>
       )}
       
-    </Box>
+    </div>
   )
 }

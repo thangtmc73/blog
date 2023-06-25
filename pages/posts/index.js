@@ -6,9 +6,6 @@ import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import ListPosts from "components/ListPosts";
 import styles from "styles/ListDefault.module.scss";
-import className from "utils/className";
-import { ThemeBox } from "components/ThemeComponent";
-import ThemeConfig from "theme/theme-config";
 
 export default function Posts({ posts }) {
   const { t } = useTranslation("post");
@@ -17,17 +14,14 @@ export default function Posts({ posts }) {
       <Head>
         <title>Posts</title>
       </Head>
-      <ThemeBox
-        // height="100%"
-        bgColorConfig={ThemeConfig.listContentBackgroundColor}
-      >
-        <div className={className(styles.maxWidthWrapper)}>
+      <div>
+        <div className="w-full max-w-screen-lg mx-auto">
           <ListPosts
             title={t("all_posts")}
             posts={posts}
           />
         </div>
-      </ThemeBox>
+      </div>
     </div>
   )
 }

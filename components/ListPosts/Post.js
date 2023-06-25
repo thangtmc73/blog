@@ -1,20 +1,13 @@
-import {
-  Link,
-  HStack,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
-} from "@chakra-ui/react";
- import { FiTag } from "react-icons/fi";
- import { useTranslation } from "next-i18next";
-import { ThemeBox, ThemeText, ThemeTag } from "components/ThemeComponent";
+import { Link } from "@chakra-ui/react";
+import { FiTag } from "react-icons/fi";
+import { useTranslation } from "next-i18next";
 import ThemeConfig from "theme/theme-config";
 
 function Post({ title, description, categories, tags, slug }) {
   const { t } = useTranslation("post");
   return (
-    <ThemeBox
-      bgColorConfig={ThemeConfig.listContentItemBackgroundColor}
+    <div
+      className="bg-content-bg dark:bg-content-bg-d min-h-100 p-8 md:p-6 rounded-2xl"
       minH={100}
       paddingTop={8}
       paddingLeft={{ base: 4, md: 8 }}
@@ -22,9 +15,10 @@ function Post({ title, description, categories, tags, slug }) {
       paddingBottom={8}
       borderRadius={12}
     >
-      <HStack>
+      <div className="flex">
         {categories?.map(category => (
-          <ThemeTag
+          <div
+            className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-sm px-2"
             key={category}
             bgColorConfig={ThemeConfig.postCategoryBackgroundColor}
             colorConfig={ThemeConfig.highlightText}
@@ -34,51 +28,37 @@ function Post({ title, description, categories, tags, slug }) {
             <Link href={'/category/' + category}>
               {category}
             </Link>
-          </ThemeTag>
+          </div>
         ))}
-      </HStack>
-      <ThemeText
-        colorConfig={ThemeConfig.highlightText}
-        fontSize="xl"
-        fontWeight={"bold"}
-        mt={2}
-      >
+      </div>
+      <p className="text-xl font-bold text-purple dark:text-purple-d mt-1">
         <Link href={'/posts/' + slug}>
           {title}
         </Link>
-      </ThemeText>
-        <ThemeText
-          colorConfig={ThemeConfig.primaryText}
-          fontSize="md"
-          mt={3}
-        >
-          {description}
-        </ThemeText>
-        <ThemeText
-          colorConfig={ThemeConfig.highlightText}
-          fontSize="sm"
-          fontWeight={"bold"}
-          mt={3}
-        >
-          <Link href={'/posts/' + slug}>
-            {t("see_more")}
-          </Link>
-        </ThemeText>
-        <HStack mt={4} spacing={1}>
+      </p>
+      <p className="text-default-fg dark:text-default-fg-d text-md mt-2">
+        {description}
+      </p>
+      <p className="text-default-fg dark:text-default-fg-d text-sm font-bold mt-2">
+        <Link href={'/posts/' + slug}>
+          {t("see_more")}
+        </Link>
+      </p>
+      <div className="flex mt-2 gap-2">
         {tags?.map(tag => {
           return (
-            <Tag key={tag}borderRadius="full">
-              <TagLeftIcon size={"sm"} as={FiTag} />
-              <TagLabel>
+            <div className="flex items-center rounded-md bg-green dark:bg-green-d text-default-fg-d dark:text-default-fg px-1" key={tag}>
+              <FiTag className="mr-1" size={12} />
+              <span>
                 <Link href={'/tag/' + tag}>
                   {tag}
                 </Link>
-              </TagLabel>
-            </Tag>
+              </span>
+            </div>
           )
         })}
-      </HStack>
-      </ThemeBox>
+      </div>
+    </div>
   )
 }
 
