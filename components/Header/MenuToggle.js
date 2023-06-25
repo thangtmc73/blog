@@ -3,7 +3,7 @@ import React from "react"
 
 function MenuToggle({ onToggle }) {
   return (
-    <button className="absolute block md:hidden right-8 top-8" onClick={onToggle}>
+    <button className="absolute block md:hidden right-8 top-8 text-default-fg dark:text-default-fg-d" onClick={onToggle}>
       <FiMenu size={ICON_SIZE} />
     </button>
   )
