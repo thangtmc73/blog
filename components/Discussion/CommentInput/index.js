@@ -1,16 +1,5 @@
 import { useState } from "react";
-import {
-  Textarea,
-  Tabs,
-  Tab,
-  TabList,
-  TabPanels,
-  TabPanel,
-} from "@chakra-ui/react";
-import styles from "../Discussion.module.scss";
-import { ThemeBox } from "../../ThemeComponent";
-import MarkdownView from "../../MarkdownView";
-import ThemeConfig from "theme/theme-config";
+// import MarkdownView from "../../MarkdownView";
 import CTAButton from "./CTAButton";
 
 function CommentInput() {
@@ -20,22 +9,16 @@ function CommentInput() {
   }
 
   return (
-    <ThemeBox
-      className={styles.commentInput}
-      bgColorConfig={ThemeConfig.defaultHeaderBackgroundColor}
-      borderRadius={4}
-      pb={3}
-      pl={2}
-      pr={2}
-    >
-      <Tabs variant="enclosed-colored" w="100%">
+    <div className="flex flex-col items-end mt-8 rounded-sm p-1">
+      {/* <Tabs variant="enclosed-colored" w="100%">
         <TabList className={styles.footer}>
           <Tab>Text</Tab>
           <Tab>Preview</Tab>
         </TabList>
         <TabPanels>
           <TabPanel padding={0}>
-            <Textarea
+            <textarea
+              className="w-full h-full"
               value={value}
               placeholder="Thêm vào thảo luận"
               size="md"
@@ -50,12 +33,12 @@ function CommentInput() {
             </div>
           </TabPanel>
         </TabPanels>
-      </Tabs>
+      </Tabs> */}
       <CTAButton
         disabled={!value}
         text={"Bình luận với GitHub"}
       />
-    </ThemeBox>
+    </div>
   )
 }
 

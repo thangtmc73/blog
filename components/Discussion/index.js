@@ -1,22 +1,12 @@
 import CommentInput from "./CommentInput";
-import { ThemeText } from "../ThemeComponent";
-import ThemeConfig from "theme/theme-config";
-import styles from "./Discussion.module.scss";
 
 function Discussion() {
   return (
-    <div className={styles.container}>
-      <ThemeText
-        colorConfig={ThemeConfig.primaryText}
-        fontSize={"2xl"}
-        fontWeight="bold"
-      >
+    <div className="mt-4 pt-4">
+      <p className="text-cyan dark:text-cyan-d text-3xl font-bold">
         Thảo luận
-      </ThemeText>
+      </p>
       <CommentInput />
-      <div>
-        
-      </div>
     </div>
   )  
 }
