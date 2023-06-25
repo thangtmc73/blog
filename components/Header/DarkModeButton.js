@@ -5,10 +5,10 @@ import ThemeContext from "theme/context";
 function DarkModeButton() {
   const { colorMode, toggleColorMode } = useContext(ThemeContext);
   return (
-    <button onClick={toggleColorMode}>
+    <button className="text-default-fg dark:text-default-fg-d" onClick={toggleColorMode}>
       {colorMode === "light"
-        ? <FiSun size={ICON_SIZE} color={"black"} />
-        : <FiMoon size={ICON_SIZE} color={"white"} />
+        ? <FiSun size={ICON_SIZE} />
+        : <FiMoon size={ICON_SIZE} />
       }
     </button>
   )
