@@ -1,13 +1,8 @@
 import Link from "next/link";
-import {
-  useBreakpointValue,
-  Grid,
-} from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import SocialContacts from "./SocialContacts";
 
 function Footer() {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
   return (
     <footer className="flex w-full max-w-screen-lg mx-auto py-6 px-4">
       <Grid
@@ -18,7 +13,7 @@ function Footer() {
           <p className="text-center md:text-left text-2xl text-pink dark:text-pink-d font-bold">
             <Link href="/" passHref>Es kommst</Link>
           </p>
-          {!isMobile && <p className="text-md">Cảm ơn bạn đã ghé qua</p>}
+          <p className="text-md hidden md:block text-default-fg dark:text-default-fg-d">Cảm ơn bạn đã ghé qua</p>
         </div>
         <SocialContacts />
         <p className="text-center md:text-left">
