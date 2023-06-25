@@ -1,19 +1,13 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import styles from "./Header.module.scss";
 import className from "utils/className";
 import {
-  Stack,
   Text,
-  Box,
   useBreakpointValue,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import DarkModeButton from "./DarkModeButton";
 // import LanguageButton from "./LanguageButton";
-import ThemeConfig from "theme/theme-config";
- import { FiX } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
 import { useEffect } from "react";
 
 const NavItems = [{
@@ -26,10 +20,7 @@ const NavItems = [{
 
 function Nav({ toggleOn, onToggle }) {
   const { t } = useTranslation("common")
-  const { pathname } = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const colorModeTextColor = useColorModeValue(...ThemeConfig.primaryText);
-  const textColor = useBreakpointValue({ base: "white", md: colorModeTextColor });
 
   useEffect(() => {
     if (isMobile && toggleOn) {
@@ -47,54 +38,34 @@ function Nav({ toggleOn, onToggle }) {
     return null;
   }
   return (
-    <Stack
-      spacing={8}
-      flex={1}
-      justify={{ base: "flex-start", md: "space-between" }}
-      direction={{ base: "column", md: "row" }}
-      className={className(isMobile && styles.navMobile)}
-      pl={{ base: 0, md: 10 }}
-      pb={{ base: 12, md: 0}}
-    >
-      <Stack
-        direction={{ base: "column", md: "row" }}
-      >
-        <Box
-          position={"absolute"}
-          top={10}
-          right={16}
-          display={{ base: "block", md: "none" }}
-          onClick={onToggle}
-        > 
+    <div className="fixed md:relative top-0 left-0 right-0 bottom-0 p-16 md:p-0 z-10 md:z-auto bg-gray-700 md:bg-inherit flex flex-1 flex-col md:flex-row justify-start md:justify-between md:items-center">
+      <div className="flex flex-col md:flex-row">
+        <button className="block md:hidden self-end" onClick={handleNavItemClick}>
           <FiX color="white" size={24} />
-        </Box>
+        </button>
         {NavItems.map(({ label, path }) => {
-          const selected = path === pathname
+          // const selected = path === pathname
           return (
             <Text
               key={label}
-              className={className(path === pathname && styles.selected)}
-              color={textColor}
-              padding={{ base: 0, md: 2 }}
-              fontSize={{ base: "2xl", md: "lg"}}
-              fontWeight={selected ? 700 : 600}
-              borderBottom={selected && !isMobile && "2px solid #ff4081"}
-              onClick={handleNavItemClick}
+              className={className(
+                "text-purple dark:text-purple-d font-semibold mx-2"
+              )}
             >
               <Link href={path}>
                 {t(path)}
               </Link>
-            </Text>    
+            </Text>
           );
         })}
-      </Stack>
-      <Stack
-        direction={"row"}
-      >
+
+      </div>
+      <div className="z-10">
         <DarkModeButton />
+
         {/* <LanguageButton /> */}
-      </Stack>
-    </Stack>
+      </div>
+    </div>
   )
 }
 

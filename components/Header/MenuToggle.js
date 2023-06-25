@@ -1,18 +1,11 @@
 import React from "react"
-import { Box } from "@chakra-ui/react"
  import { FiMenu } from "react-icons/fi";
 
 function MenuToggle({ onToggle }) {
   return (
-    <Box
-      position={"absolute"}
-      top={10}
-      right={16}
-      display={{ base: "block", md: "none" }}
-      onClick={onToggle}
-    > 
+    <button className="absolute block md:hidden right-8 top-8" onClick={onToggle}>
       <FiMenu size={ICON_SIZE} />
-    </Box>
+    </button>
   )
 }
 
