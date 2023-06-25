@@ -4,12 +4,6 @@ import matter from "gray-matter";
 import Head from "next/head";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import PostDetailHeader from "./components/PostDetailHeader";
-import styles from "styles/PostDetail.module.scss";
-import className from "utils/className";
-import ThemeConfig from "theme/theme-config";
-import {
-  ThemeBox,
-} from "components/ThemeComponent";
 import MarkdownView from "components/MarkdownView";
 
 function PostPage({
@@ -21,12 +15,12 @@ function PostPage({
   content,
 }) {
   return (
-    <div className={styles.page}>
+    <>
       <Head>
         <title>Posts</title>
       </Head>
-      <ThemeBox bgColorConfig={ThemeConfig.defaultHeaderBackgroundColor}>
-        <div className={styles.maxWidthWrapper}>
+      <div className="bg-default-bg dark:bg-default-bg-d">
+        <div className="max-w-screen-md	mx-auto px-4 md:px-2">
           <PostDetailHeader
             title={title}
             description={description}
@@ -35,21 +29,13 @@ function PostPage({
             tags={tags}
           />
         </div>
-      </ThemeBox>
-      <ThemeBox bgColorConfig={ThemeConfig.defaultContentBackgroundColor}>
-        <div className={className(styles.maxWidthWrapper, styles.mainContent)}>
-          <ThemeBox
-            bgColorConfig={ThemeConfig.defaultContentBackgroundColor}
-            className={className(styles.markdownContent)}
-            pl={8}
-            pr={8}
-            pt={6}
-          >
-            <MarkdownView markdown={content} />
-          </ThemeBox>
+      </div>
+      <div className="bg-content-bg dark:bg-content-bg-d">
+        <div className="max-w-screen-md mx-auto px-8 md:px-2 pt-1">
+          <MarkdownView markdown={content} />
         </div>
-      </ThemeBox>
-    </div>
+      </div>
+    </>
   )
 }
 

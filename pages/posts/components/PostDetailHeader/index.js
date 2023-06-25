@@ -1,57 +1,46 @@
 import dayjs from "dayjs";
-import { Tag, HStack, Link } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/react";
+import { FiTag } from "react-icons/fi";
 import { useTranslation } from "next-i18next";
-import { ThemeText } from "components/ThemeComponent";
-import styles from "./PostDetailHeader.module.scss";
-import ThemeConfig from "theme/theme-config";
 
 function PostDetailHeader({ title, description, date, categories, tags }) {
   const { t } = useTranslation("post");
   return (
-    <div className={styles.container}>
-      <ThemeText
-        colorConfig={ThemeConfig.primaryText}
-        fontSize="3xl"
-        fontWeight={"bold"}
-      >
+    <div className="px-4 py-8">
+      <p className="text-cyan dark:text-cyan-d text-3xl font-bold">
         {title}
-      </ThemeText>
+      </p>
       {description && (
-        <ThemeText
-          colorConfig={ThemeConfig.subText}
-          marginTop={3}
-          fontSize="md"
-        >
-            {description}
-        </ThemeText>
+        <p className="text-default-fg dark:text-default-fg-d text-md mt-4">
+          {description}
+        </p>
       )}
-      <HStack mt={4} spacing={4}>
+      <div className="flex mt-2 gap-2">
         {categories?.map(category => {
           return (
-            <Tag key={category} variant={"solid"}>
+            <div className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-xs px-2" key={category}>
               <Link href={'/category/' + category}>
                 {category}
               </Link>
-            </Tag>
+            </div>
           );
         })}
         {tags?.map(tag => {
           return (
-            <Tag key={tag}>
-              <Link href={'/tag/' + tag}>
-                {tag}
-              </Link>
-            </Tag>
+            <div className="flex items-center rounded-md bg-green dark:bg-green-d text-default-fg-d dark:text-default-fg px-1 text-xs" key={tag}>
+              <FiTag className="mr-1" size={12} />
+              <span>
+                <Link href={'/tag/' + tag}>
+                  {tag}
+                </Link>
+              </span>
+            </div>
           );
         })}
-      </HStack>
-      <ThemeText
-        colorConfig={ThemeConfig.primaryText}
-        mt={3}
-        fontSize="md"
-      >
-          {t("written_at")} <b>{dayjs(date).format("DD-MM-YYYY")}</b>
-      </ThemeText>
+      </div>
+      <p className="text-default-fg dark:text-default-fg-d mt-3 text-md">
+        {t("written_at")} <b>{dayjs(date).format("DD-MM-YYYY")}</b>
+      </p>
     </div>
   )
 }
