@@ -19,7 +19,8 @@ function PostPage({
       <Head>
         <title>Posts</title>
       </Head>
-      <div className="bg-default-bg dark:bg-default-bg-d">
+      <div className="bg-default-bg dark:bg-default-bg-d relative">
+        <div className="sticky h-20 top-0 left-0 right-0 bg-default-bg dark:bg-default-bg-d z-10" />
         <div className="max-w-screen-md	mx-auto px-4 md:px-2">
           <PostDetailHeader
             title={title}
@@ -31,7 +32,8 @@ function PostPage({
         </div>
       </div>
       <div className="bg-content-bg dark:bg-content-bg-d">
-        <div className="max-w-screen-md mx-auto px-8 md:px-2 pt-1">
+        <div className="sticky h-20 top-0 left-0 right-0 bg-content-bg dark:bg-content-bg-d z-10" />
+        <div className="max-w-screen-md mx-auto px-8 md:px-2">
           <MarkdownView markdown={content} />
         </div>
       </div>

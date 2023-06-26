@@ -9,8 +9,8 @@ function Header() {
     setToggleOn(on => !on);
   }
   return (
-    <div className="flex items-end w-full max-w-screen-lg mx-auto sticky py-6 px-4">
-      <h1 className="text-3xl font-bold mr-4 text-pink dark:text-pink-d">
+    <div className="top-0 left-0 right-0 z-30 flex items-center w-full max-w-screen-lg mx-auto sticky py-4 px-4">
+      <h1 className="text-3xl font-bold mr-6 text-pink dark:text-pink-d">
         <Link href="/" passHref>Es kommst</Link>
       </h1>
       <Nav

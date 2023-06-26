@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider>
       <ChakraProvider>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-screen overflow-auto">
       <Header />
         <div className="flex-1">
           <Component {...pageProps} />
