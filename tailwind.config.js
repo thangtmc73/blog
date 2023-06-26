@@ -19,9 +19,9 @@ module.exports = {
     },
     colors: {
       "default-bg-d": "#262935",
-      "default-bg": "#FFFFFF",
+      "default-bg": "#f8f8f2",
       "content-bg-d": "#181921",
-      "content-bg": "#f8f8f2",
+      "content-bg": "#ffff",
       "default-fg-d": "#f8f8f2",
       "default-fg": "#272A36",
       "pink-d": "#ff79c6",
