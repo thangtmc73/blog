@@ -55,9 +55,7 @@ function Nav({ toggleOn, onToggle }) {
           );
         })}
       </div>
-      <div>
-        <DarkModeButton />
-      </div>
+      <DarkModeButton />
     </div>
   )
 }
