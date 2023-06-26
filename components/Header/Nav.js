@@ -35,7 +35,7 @@ function Nav({ toggleOn, onToggle }) {
       toggleOn && "bg-default-bg dark:bg-default-bg-d",
       "md:flex flex-1 flex-col md:flex-row justify-start md:justify-between md:items-center"
     )}>
-      <div className="flex flex-col md:flex-row mb-4 md:mb-0 gap-2">
+      <div className="flex flex-col md:flex-row mb-4 md:mb-0 gap-4">
         <button className="block md:hidden self-end text-default-fg dark:text-default-fg-d" onClick={handleNavItemClick}>
           <FiX size={24} />
         </button>
