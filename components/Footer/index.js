@@ -1,26 +1,22 @@
 import Link from "next/link";
-import { Grid } from "@chakra-ui/react";
 import SocialContacts from "./SocialContacts";
 
 function Footer() {
   return (
-    <footer className="flex w-full max-w-screen-lg mx-auto py-6 px-4">
-      <Grid
-        w={"100%"}
-        gridTemplateColumns={{ base: "repeat(1, 1fr)", md: "1fr 300px" }}
-      >
+    <footer className="flex flex-col w-full max-w-screen-lg mx-auto py-6 px-4">
+      <div className="w-full flex flex-col md:flex-row justify-between">
         <div>
-          <p className="text-center md:text-left text-2xl text-pink dark:text-pink-d font-bold">
-            <Link href="/" passHref>Es kommst</Link>
-          </p>
-          <p className="text-md hidden md:block text-default-fg dark:text-default-fg-d">Cảm ơn bạn đã ghé qua</p>
+        <p className="text-center md:text-left text-2xl text-pink dark:text-pink-d font-bold">
+          <Link href="/" passHref>Es kommst</Link>
+        </p>
+        <p className="text-md hidden md:block text-default-fg dark:text-default-fg-d">Cảm ơn bạn đã ghé qua</p>
         </div>
         <SocialContacts />
-        <p className="text-center md:text-left">
-          2021-present Thang Minh Tran
-        </p>
-      </Grid>
-    </footer>
+      </div>
+      <p className="text-center md:text-left text-default-fg dark:text-default-fg-d">
+        2021-present Thang Minh Tran
+      </p>
+    </footer >
   );
 }
 
