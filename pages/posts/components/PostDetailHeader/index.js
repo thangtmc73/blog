@@ -26,7 +26,7 @@ function PostDetailHeader({ title, description, date, categories, tags }) {
         })}
         {tags?.map(tag => {
           return (
-            <div className="flex items-center rounded-md bg-green dark:bg-green-d text-default-fg-d dark:text-default-fg px-1 text-xs" key={tag}>
+            <div className="flex items-center rounded bg-yellow dark:bg-yellow-d text-default-fg-d dark:text-default-fg px-2 text-xs" key={tag}>
               <FiTag className="mr-1" size={12} />
               <a className="hover:underline underline-offset-2" href={'/tag/' + tag}>
                 {tag}
