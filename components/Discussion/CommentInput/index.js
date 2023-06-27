@@ -1,12 +1,12 @@
-import { useState } from "react";
+// import { useState } from "react";
 // import MarkdownView from "../../MarkdownView";
 import CTAButton from "./CTAButton";
 
 function CommentInput() {
-  const [value, setValue] = useState("");
-  function handleCommentChange(event) {
-    setValue(event.target.value);
-  }
+  // const [value, setValue] = useState("");
+  // function handleCommentChange(event) {
+  //   setValue(event.target.value);
+  // }
 
   return (
     <div className="flex flex-col items-end mt-8 rounded-sm p-1">
