@@ -5,7 +5,7 @@ function Post({ title, description, categories, tags, slug }) {
   const { t } = useTranslation("post");
   return (
     <div
-      className="min-h-100 p-8 md:p-6 rounded-2xl"
+      className="min-h-100 p-8 md:p-6 border-b last:border-b-0 border-purple dark:border-purple-d"
       minH={100}
       paddingTop={8}
       paddingLeft={{ base: 4, md: 8 }}

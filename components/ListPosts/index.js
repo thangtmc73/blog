@@ -15,16 +15,15 @@ export default function ListPosts({ title, posts }) {
           {posts.map((post, i) => {
             const { title, description, date, categories, tags, slug } = post;
             return (
-              <div className="mb-2" key={i}>
-                <Post
-                  title={title}
-                  description={description}
-                  date={date}
-                  categories={categories}
-                  slug={slug}
-                  tags={tags}
-                />
-              </div>
+              <Post
+                key={i}
+                title={title}
+                description={description}
+                date={date}
+                categories={categories}
+                slug={slug}
+                tags={tags}
+              />
             );
           })}
         </div>
