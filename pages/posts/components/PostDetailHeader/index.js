@@ -5,8 +5,8 @@ import { useTranslation } from "next-i18next";
 function PostDetailHeader({ title, description, date, categories, tags }) {
   const { t } = useTranslation("post");
   return (
-    <div className="px-4 py-8">
-      <p className="text-cyan dark:text-cyan-d text-3xl font-bold">
+    <div className="px-4 pt-1 pb-8">
+      <p className="text-cyan dark:text-cyan-d text-3xl font-bold mt-0">
         {title}
       </p>
       {description && (
