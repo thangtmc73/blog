@@ -4,15 +4,7 @@ import { useTranslation } from "next-i18next";
 function Post({ title, description, categories, tags, slug }) {
   const { t } = useTranslation("post");
   return (
-    <div
-      className="min-h-100 p-8 md:p-6 border-b last:border-b-0 border-purple dark:border-purple-d"
-      minH={100}
-      paddingTop={8}
-      paddingLeft={{ base: 4, md: 8 }}
-      paddingRight={{ base: 4, md: 8 }}
-      paddingBottom={8}
-      borderRadius={12}
-    >
+    <div className="min-h-100 p-8 md:p-6 border-b last:border-b-0 border-purple dark:border-purple-d">
       <div className="flex">
         {categories?.map(category => (
           <div className="bg-orange dark:bg-orange-d text-default-fg-d dark:text-default-fg rounded text-xs px-2" key={category}>
